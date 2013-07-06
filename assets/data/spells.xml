@@ -1,0 +1,11 @@
+<bullets>
+	<bullet name="projectile">
+		<tileset class="BulletProjectile" tileWidth="5" tileHeight="3" />
+		<dimensions width="1" height="1" offsetX="4" offsetY="1" />
+		<characteristics>
+			<hp>1</hp>
+			<power>1</power>
+			<speed>160</speed>
+		</characteristics>
+	</bullet>
+</bullets>

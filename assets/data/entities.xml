@@ -1,8 +1,17 @@
 <entities>
 	<entity name="wizard">
+		<asset>
+			<name>Wizard</name>
+			<width>16</width>
+			<height>8</height>
+		</asset>
+		<bounds>
+			<x>1</x>
+			<width>6</width>
+		</bounds>
 		<characteristics>
-			<hp>5</hp>
-			<mp>5</mp>
+			<maxHealth>5</maxHealth>
+			<maxMana>5</maxMana>
 			<willpower>5</willpower>
 			<magic>5</magic>
 			<speed>5</speed>
@@ -10,15 +19,32 @@
 			<attack>5</attack>
 		</characteristics>
 	</entity>
-	<entity name="ork">
+	<entity name="fly">
+		<asset>
+			<name>Fly</name>
+			<width>3</width>
+			<height>3</height>
+		</asset>
 		<characteristics>
-			<hp>5</hp>
-			<mp>5</mp>
-			<willpower>5</willpower>
-			<magic>5</magic>
-			<speed>5</speed>
+			<maxHealth>1</maxHealth>
+			<speed>3</speed>
 			<perception>5</perception>
 			<attack>5</attack>
+			<flying>1</flying>
+		</characteristics>
+	</entity>
+	<entity name="skeleton">
+		<asset>
+			<name>Skeleton</name>
+			<width>8</width>
+			<height>8</height>
+		</asset>
+		<characteristics>
+			<maxHealth>5</maxHealth>
+			<speed>7</speed>
+			<perception>5</perception>
+			<attack>5</attack>
+			<flying>false</flying>
 		</characteristics>
 	</entity>
 </entities>

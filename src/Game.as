@@ -1,12 +1,11 @@
 package
 {
-	import managers.DataManager;
-	import managers.LevelManager;
-	
 	import org.flixel.FlxG;
 	import org.flixel.FlxGame;
 	
-	import states.PlayState;
+	import sacrifice.managers.EntityManager;
+	import sacrifice.managers.LevelManager;
+	import sacrifice.states.PlayState;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -25,7 +24,7 @@ package
 			
 			FlxG.visualDebug = true;
 			
-			DataManager.init();
+			EntityManager.init();
 			LevelManager.init();
 		}
 	}

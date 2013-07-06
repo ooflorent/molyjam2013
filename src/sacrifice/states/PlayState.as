@@ -1,19 +1,19 @@
-package states 
+package sacrifice.states 
 {
-	import entities.HUD;
-	import entities.Player;
-	
-	import managers.LevelManager;
-	
-	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
-	import org.flixel.FlxRect;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxTileblock;
 	import org.flixel.FlxTilemap;
-	import org.flixel.FlxU;
+	
+	import sacrifice.entities.Bullet;
+	import sacrifice.entities.HUD;
+	import sacrifice.entities.Player;
+	import sacrifice.managers.AssetManager;
+	import sacrifice.managers.EntityManager;
+	import sacrifice.managers.LevelManager;
 	
 	public class PlayState extends FlxState
 	{
@@ -27,14 +27,19 @@ package states
 		private var hud:HUD;
 		private var player:Player;
 		
-		// Entity groups
+		// Layer groups
+		private var background:FlxGroup;
 		private var blocks:FlxGroup;
+		private var lethal:FlxGroup;
+		private var foreground:FlxGroup;
+		
+		// Entity groups
 		private var enemies:FlxGroup;
 		private var enemyBullets:FlxGroup;
-		private var lethal:FlxGroup;
 		private var playerBullets:FlxGroup;
 		
 		// Collision groups
+		private var bullets:FlxGroup;
 		private var hazards:FlxGroup;
 		private var objects:FlxGroup;
 		
@@ -48,22 +53,31 @@ package states
 		{
 			FlxG.mouse.hide();
 			
+			background = new FlxGroup;
 			blocks = new FlxGroup;
 			lethal = new FlxGroup;
+			foreground = new FlxGroup;
 			enemies = new FlxGroup;
 			enemyBullets = new FlxGroup;
 			playerBullets = new FlxGroup;
 			
-			player = new Player(40, 40, playerBullets);
+			player = EntityManager.createPlayer("wizard");
+			player.bullets = playerBullets;
 			
 			generateLevel(3);
 			
 			FlxG.camera.follow(player);
 			
-			add(lethal);
+			add(background);
 			add(blocks);
 			add(enemies);
 			add(player);
+			add(foreground);
+			
+			if (FlxG.visualDebug) {
+				add(lethal);
+			}
+			
 			add(enemyBullets);
 			add(playerBullets);
 			
@@ -81,6 +95,11 @@ package states
 			objects.add(player);
 			objects.add(enemyBullets);
 			objects.add(playerBullets);
+			
+			// Bullets
+			bullets = new FlxGroup;
+			bullets.add(enemyBullets);
+			bullets.add(playerBullets);
 		}
 		
 		override public function update():void
@@ -89,9 +108,10 @@ package states
 			
 			// Collisions
 			FlxG.collide(blocks, objects);
-			FlxG.overlap(lethal, objects, overlapped);
-			FlxG.overlap(hazards, player, overlapped);
-			FlxG.overlap(playerBullets, hazards, overlapped);
+			FlxG.overlap(blocks, bullets, overlap);
+			FlxG.overlap(lethal, objects, lethalOverlap);
+			FlxG.overlap(hazards, player, overlap);
+			FlxG.overlap(playerBullets, hazards, overlap);
 		}
 		
 		//----------------------------------------------------------------------
@@ -100,20 +120,47 @@ package states
 		//
 		//----------------------------------------------------------------------
 		
-		private function overlapped(sprite1:FlxSprite, sprite2:FlxSprite):void
+		private function overlap(object1:FlxObject, object2:FlxObject):void
 		{
+			if (object1 is Bullet) {
+				if (object2.touching != FlxObject.NONE) {
+					object2.kill();
+				}
+			}
 			
+			if (object2 is Bullet) {
+				if (object2.touching != FlxObject.NONE) {
+					object2.kill();
+				}
+			}
+		}
+		
+		private function lethalOverlap(object1:FlxObject, object2:FlxObject):void
+		{
 		}
 		
 		private function generateLevel(length:uint):void
 		{
+			var maps:Object;
 			var map:FlxTilemap;
+			var farAway:FlxSprite;
+			var layer:String;
 			var screen:uint;
+			var offset:uint;
 			
+			// Level
 			for (; screen < length; ++screen) {
-				map = LevelManager.generate();
-				map.x = map.width * screen;
-				blocks.add(map);
+				farAway = new FlxSprite(0, 0, AssetManager.getClass("Background"));
+				background.add(farAway);
+				
+				maps = LevelManager.generate();
+				for (layer in maps) {
+					map = maps[layer];
+					map.x = map.width * screen;
+					FlxGroup(this[layer]).add(map);
+				}
+				
+				farAway.x = map.width * screen;
 			}
 
 			// Level bounds

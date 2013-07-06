@@ -1,4 +1,4 @@
-package managers
+package sacrifice.managers
 {
 	public class AssetManager
 	{
@@ -17,8 +17,14 @@ package managers
 		[Embed("../assets/images/wizard.png")]
 		private static const Wizard:Class;
 		
-		[Embed("../assets/images/tileset-cave.png")]
-		private static const TilesetCave:Class;
+		[Embed("../assets/images/background.png")]
+		private static const Background:Class;
+		
+		[Embed("../assets/images/tilesets/blocks.png")]
+		private static const TilesetBlocks:Class;
+		
+		[Embed("../assets/images/bullets/projectile.png")]
+		private static const BulletProjectile:Class;
 		
 		//----------------------------------------------------------------------
 		//
@@ -28,7 +34,16 @@ package managers
 		
 		public static function getClass(asset:String):Class
 		{
-			return Class(AssetManager[asset]);
+			if (!asset) {
+				throw new Error("Asset name is required");
+			}
+			
+			var assetClass:Class = Class(AssetManager[asset]);
+			if (!assetClass) {
+				throw new Error("Uknown asset '" + asset + "'");
+			}
+			
+			return assetClass;
 		}
 	}
 }

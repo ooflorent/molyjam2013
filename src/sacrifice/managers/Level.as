@@ -1,4 +1,4 @@
-package managers
+package sacrifice.managers
 {
 	public class Level
 	{
@@ -8,9 +8,12 @@ package managers
 		//
 		//----------------------------------------------------------------------
 		
-		public function Level(blocks:String)
+		public function Level(background:String, blocks:String, lethal:String, foreground:String)
 		{
+			this.background = background;
 			this.blocks = blocks;
+			this.lethal = lethal;
+			this.foreground = foreground;
 		}
 		
 		//----------------------------------------------------------------------
@@ -19,6 +22,9 @@ package managers
 		//
 		//----------------------------------------------------------------------
 		
+		public var background:String;
 		public var blocks:String;
+		public var lethal:String;
+		public var foreground:String;
 	}
 }

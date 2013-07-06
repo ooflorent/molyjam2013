@@ -1,11 +1,11 @@
-package entities
+package sacrifice.entities
 {
-	import managers.AssetManager;
-	
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	
+	import sacrifice.managers.AssetManager;
 	
 	public class HUD extends FlxGroup
 	{

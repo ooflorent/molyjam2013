@@ -1,15 +1,9 @@
-package entities
+package sacrifice.entities
 {
-	import components.Characteristics;
-	
-	import managers.AssetManager;
-	import managers.DataManager;
-	
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
-	import org.flixel.FlxSprite;
 	
-	public class Player extends FlxSprite
+	public class Player extends Entity
 	{
 		//----------------------------------------------------------------------
 		//
@@ -17,28 +11,9 @@ package entities
 		//
 		//----------------------------------------------------------------------
 		
-		public function Player(x:Number, y:Number, bullets:FlxGroup)
+		public function Player()
 		{
-			super(x, y);
-			this.bullets = bullets;
-			
-			loadGraphic(AssetManager.getClass("Wizard"), true, true, 16, 8, true);
-			
-			addAnimation("idle", [0]);
-			addAnimation("walk", [2, 3], 10, true);
-			addAnimation("attack", [4]);
-			addAnimation("death", [6]);
-			addAnimation("jump", [8, 9], 20, true);
-			
-			width = 6;
-			height = 8;
-			
-			moving = NONE;
-			facing = RIGHT;
-			
-			play("idle");
-			
-			charateristics = DataManager.getCharacteristics("wizard");
+			super();
 		}
 		
 		//----------------------------------------------------------------------
@@ -47,18 +22,16 @@ package entities
 		//
 		//----------------------------------------------------------------------
 		
-		private var bullets:FlxGroup;
+		private var attackCooldown:Number = 0;
+		private var jumpCount:uint;
 		
 		//----------------------------------------------------------------------
 		//
 		//  Properties
 		//
 		//----------------------------------------------------------------------
-		
-		public var jumpCount:uint;
-		public var moving:uint;
-		
-		public var charateristics:Characteristics;
+
+		public var bullets:FlxGroup;
 		
 		//----------------------------------------------------------------------
 		//
@@ -68,7 +41,7 @@ package entities
 		
 		override public function update():void
 		{
-			maxVelocity.x = 8 * (2 + charateristics.speed);
+			maxVelocity.x = 8 * (2 + speed);
 			maxVelocity.y = 200;
 			
 			drag.x = maxVelocity.x * 8;
@@ -96,25 +69,31 @@ package entities
 			
 			if (FlxG.keys.justPressed("UP")) {
 				// Double jump available only when speed >= 4
-				if (0 == velocity.y || 4 <= charateristics.speed && 1 == jumpCount) {
+				if (0 == velocity.y || 4 <= speed && 1 == jumpCount) {
 					velocity.y = -maxVelocity.y;
 					jumpCount++;
 				}
 			}
 			
-			if (0 != velocity.y) {
+			if (attackCooldown > 0) {
+				attackCooldown -= FlxG.elapsed * 6;
+			} else {
+				if (FlxG.keys.justPressed("X") || FlxG.keys.justPressed("C") || FlxG.keys.justPressed("V")) {
+					getMidpoint(_point);
+					Bullet(bullets.recycle(Bullet)).shoot(_point, facing);
+					attackCooldown = 1;
+				}
+			}
+			
+			if (attackCooldown > 0) {
+				play("attack");
+			} else if (0 != velocity.y) {
 				play("jump");
 			} else if (0 != velocity.x) {
 				play("walk");
 			} else {
 				play("idle");
 			}
-			/*
-			if (FlxG.keys.justPressed("X") || FlxG.keys.justPressed("C") || FlxG.keys.justPressed("V")) {
-				//getMidpoint(_point);
-				//Bullet(bullets.recycle(Bullet)).shoot(_point);
-				play("attack");
-			}*/
 			
 			super.update();
 		}
