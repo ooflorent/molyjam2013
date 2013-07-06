@@ -1,7 +1,9 @@
 package
 {
 	import managers.DataManager;
+	import managers.LevelManager;
 	
+	import org.flixel.FlxG;
 	import org.flixel.FlxGame;
 	
 	import states.PlayState;
@@ -21,7 +23,10 @@ package
 		{
 			super(160, 120, PlayState, 4);
 			
+			FlxG.visualDebug = true;
+			
 			DataManager.init();
+			LevelManager.init();
 		}
 	}
 }
