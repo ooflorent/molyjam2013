@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="blocks" tilewidth="8" tileheight="8">
   <image source="../images/tilesets/blocks.png" width="56" height="64"/>
  </tileset>
- <layer name="background" width="20" height="13" visible="0">
+ <layer name="background" width="20" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -37,7 +37,7 @@
 15,15,15,15,32,32,32,32,15,15,15,15,15,15,15,15,27,15,15,15
 </data>
  </layer>
- <layer name="lethal" width="20" height="13" visible="0">
+ <layer name="lethal" width="20" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -54,7 +54,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0
 </data>
  </layer>
- <layer name="enemies" width="20" height="13" visible="0">
+ <layer name="enemies" width="20" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -71,7 +71,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="foreground" width="20" height="13" visible="0">
+ <layer name="foreground" width="20" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

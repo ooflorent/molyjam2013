@@ -36,9 +36,12 @@
 	<entity name="skeleton">
 		<asset>
 			<name>Skeleton</name>
-			<width>8</width>
+			<width>12</width>
 			<height>8</height>
 		</asset>
+		<bounds>
+			<x>1</x>
+			<width>6</width>
 		<characteristics>
 			<maxHealth>5</maxHealth>
 			<speed>7</speed>
