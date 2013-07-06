@@ -14,6 +14,7 @@ package sacrifice.entities
 		public function Player()
 		{
 			super();
+			facing = RIGHT;
 		}
 		
 		//----------------------------------------------------------------------
@@ -22,7 +23,6 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 		
-		private var attackCooldown:Number = 0;
 		private var jumpCount:uint;
 		
 		//----------------------------------------------------------------------
@@ -41,13 +41,7 @@ package sacrifice.entities
 		
 		override public function update():void
 		{
-			maxVelocity.x = 8 * (2 + speed);
-			maxVelocity.y = 200;
-			
-			drag.x = maxVelocity.x * 8;
-			
-			acceleration.x = 0;
-			acceleration.y = 700;
+			updateMetrics();
 			
 			if (FlxG.keys.LEFT) {
 				facing = LEFT;
@@ -56,13 +50,7 @@ package sacrifice.entities
 				facing = RIGHT;
 				acceleration.x += drag.x;
 			}
-			
-			if (LEFT == facing) {
-				offset.x = 9;
-			} else {
-				offset.x = 1;
-			}
-			
+
 			if (isTouching(FLOOR)) {
 				jumpCount = 0;
 			}
@@ -75,24 +63,12 @@ package sacrifice.entities
 				}
 			}
 			
-			if (attackCooldown > 0) {
-				attackCooldown -= FlxG.elapsed * 6;
-			} else {
+			if (0 >= attackCooldown) {
 				if (FlxG.keys.justPressed("X") || FlxG.keys.justPressed("C") || FlxG.keys.justPressed("V")) {
 					getMidpoint(_point);
 					Bullet(bullets.recycle(Bullet)).shoot(_point, facing);
 					attackCooldown = 1;
 				}
-			}
-			
-			if (attackCooldown > 0) {
-				play("attack");
-			} else if (0 != velocity.y) {
-				play("jump");
-			} else if (0 != velocity.x) {
-				play("walk");
-			} else {
-				play("idle");
 			}
 			
 			super.update();

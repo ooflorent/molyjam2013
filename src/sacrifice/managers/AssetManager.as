@@ -11,8 +11,14 @@ package sacrifice.managers
 		[Embed("../assets/images/hud.png")]
 		private static const HUD:Class;	
 		
+		[Embed("../assets/images/fly.png")]
+		private static const Fly:Class;
+		
 		[Embed("../assets/images/knight.png")]
 		private static const Knight:Class;
+		
+		[Embed("../assets/images/snake.png")]
+		private static const Snake:Class;
 		
 		[Embed("../assets/images/wizard.png")]
 		private static const Wizard:Class;

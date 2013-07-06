@@ -76,11 +76,14 @@ package sacrifice.managers
 			
 			// Parse bounding box
 			if (entity.bounds) {
-				object.offset.x = int(entity.bounds.x);
-				object.offset.y = int(entity.bounds.y);
-				object.width = entity.bounds.width.length() ? int(entity.bounds.width) : entity.asset.width;
-				object.height = entity.bounds.height.length() ? int(entity.bounds.height) : entity.asset.height;
+				object.originalOffset.x = int(entity.bounds.x);
+				object.originalOffset.y = int(entity.bounds.y);
+				object.width = entity.bounds.width.length() ? int(entity.bounds.width) : (entity.asset.width - object.originalOffset.x);
+				object.height = entity.bounds.height.length() ? int(entity.bounds.height) : (entity.asset.height - object.originalOffset.y);
 			}
+			
+			// Custom entity initialization
+			object.create();
 			
 			return object;	
 		}

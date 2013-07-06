@@ -13,6 +13,7 @@ package sacrifice.entities
 		public function Enemy()
 		{
 			super();
+			facing = 0 == Math.round(Math.random()) ? LEFT : RIGHT;
 		}
 	}
 }
