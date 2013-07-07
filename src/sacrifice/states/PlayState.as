@@ -9,7 +9,6 @@ package sacrifice.states
 	import org.flixel.FlxTileblock;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	
-	import sacrifice.entities.Entity;
 	import sacrifice.entities.Gibs;
 	import sacrifice.entities.Level;
 	import sacrifice.entities.Player;
@@ -38,6 +37,7 @@ package sacrifice.states
 		private var enemyBullets:FlxGroup;
 		private var playerBullets:FlxGroup;
 		private var gibs:Gibs;
+		private var entities:FlxGroup;
 		
 		// Collision groups
 		private var bullets:FlxGroup;
@@ -125,8 +125,6 @@ package sacrifice.states
 			entities.setAll("gibs", gibs);
 		}
 		
-		private var entities:FlxGroup;
-		
 		override public function update():void
 		{
 			super.update();
@@ -137,8 +135,8 @@ package sacrifice.states
 			
 			// Script collisions
 			FlxG.overlap(lethal, objects, killObject);
-			FlxG.overlap(hazards, player, overlap);
-			FlxG.overlap(playerBullets, hazards, overlap);
+			FlxG.overlap(hazards, player, hurtObject);
+			FlxG.overlap(playerBullets, hazards, hurtObject);
 		}
 		
 		//----------------------------------------------------------------------
@@ -159,29 +157,17 @@ package sacrifice.states
 			object.kill();
 		}
 		
-		private function overlap(object1:FlxObject, object2:FlxObject):void
+		private function hurtObject(source:FlxObject, target:FlxObject):void
 		{
-			if (object1 is Bullet) {
-				if (object1.touching != FlxObject.NONE) {
-					object1.kill();
-				}
-				
-				if (object2 is Entity) {
-					object1.kill();
-					object2.hurt(1);
-				}
+			if (source is Bullet) {
+				source.kill();
 			}
 			
-			if (object2 is Bullet) {
-				if (object2.touching != FlxObject.NONE) {
-					object2.kill();
-				}
+			if (target is Bullet) {
+				target.kill();
 			}
-		}
-		
-		private function lethalOverlap(object1:FlxObject, object2:FlxObject):void
-		{
-			object2.kill();
+			
+			target.hurt(1);
 		}
 	}
 }

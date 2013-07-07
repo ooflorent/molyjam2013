@@ -1,10 +1,8 @@
 package sacrifice.entities
 {
-	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 	
 	import org.flixel.FlxG;
-	import org.flixel.FlxGroup;
 	import org.flixel.FlxRect;
 	import org.flixel.plugin.photonstorm.FlxControl;
 	import org.flixel.plugin.photonstorm.FlxControlHandler;
@@ -29,7 +27,7 @@ package sacrifice.entities
 			}
 			
 			facing = RIGHT;
-			invincibleDrag = 5;
+			invincibleDuration = 1000;
 		}
 		
 		//----------------------------------------------------------------------
@@ -105,7 +103,7 @@ package sacrifice.entities
 		private function bulletDirectionCallback(weapon:FlxWeapon):Function
 		{
 			return function():void {
-				fireTime = getTimer() + fireDuration;
+				fireTimer = getTimer() + fireDuration;
 				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
 			}
 		}

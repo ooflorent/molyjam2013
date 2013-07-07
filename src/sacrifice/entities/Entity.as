@@ -3,7 +3,6 @@ package sacrifice.entities
 	import flash.utils.getTimer;
 	
 	import org.flixel.FlxEmitter;
-	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	
@@ -37,9 +36,9 @@ package sacrifice.entities
 		//----------------------------------------------------------------------
 		
 		protected var fireDuration:uint = 250;
-		protected var fireTime:uint;
-		protected var invincibleCooldown:Number = 0;
-		protected var invincibleDrag:Number = 10;
+		protected var fireTimer:uint;
+		protected var invincibleDuration:uint = 200;
+		protected var invincibleTimer:uint;
 		
 		//----------------------------------------------------------------------
 		//
@@ -103,7 +102,7 @@ package sacrifice.entities
 			
 			super.update();
 			
-			if (getTimer() < fireTime) {
+			if (getTimer() < fireTimer) {
 				play("attack");
 			} else if (touching == FLOOR) {
 				if (0 != velocity.x) {
@@ -114,14 +113,12 @@ package sacrifice.entities
 			} else {
 				play("jump");
 			}
-			
-			invincibleCooldown -= FlxG.elapsed * invincibleDrag;
 		}
 		
 		override public function hurt(damage:Number):void
 		{
-			if (0 >= invincibleCooldown) {
-				invincibleCooldown = 1;
+			if (getTimer() > invincibleTimer) {
+				invincibleTimer = getTimer() + invincibleDuration;
 				onHurt();
 				
 				super.hurt(damage);
