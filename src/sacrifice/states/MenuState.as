@@ -9,8 +9,10 @@ package sacrifice.states
 	
 	public class MenuState extends FlxState
 	{
-		public function MenuState()
+		override public function create():void
 		{
+			FlxG.flash(0xFF000000, 0.4);
+			
 			var text:FlxText;
 			
 			text = new TextTitle(0, 4, 160, "Sacrifice...");
