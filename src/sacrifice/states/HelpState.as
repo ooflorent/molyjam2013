@@ -30,7 +30,7 @@ package sacrifice.states
 			thirdLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
 			add(thirdLine);
 
-			var fourthLine:FlxText = new FlxText(0, 66, 160, "Use X/C/V to cast spells");
+			var fourthLine:FlxText = new FlxText(0, 66, 160, "Use X to cast bolts");
 			fourthLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
 			add(fourthLine);
 			
