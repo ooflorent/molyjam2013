@@ -56,7 +56,8 @@ package sacrifice.states
 			playerBullets = new FlxGroup;
 			
 			player = EntityManager.createPlayer("wizard");
-			player.x = 30;
+			player.x = GameModel.TILE_SIZE * 0;
+			player.y = GameModel.TILE_SIZE * 11;
 			
 			playerBullets.add(player.bolt.group);
 			playerBullets.add(player.fireCone.group);

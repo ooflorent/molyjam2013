@@ -57,6 +57,10 @@ package sacrifice.managers
 				}
 			}
 			
+			maps.sort(function (map1:Object, map2:Object):int {
+				return map1.name < map2.name ? -1 : 1;
+			});
+			
 			for (var tx:uint; tx < MAP_WIDTH; ++tx) {
 				if (0 == tx) {
 					emptyRow = "0"
