@@ -39,6 +39,9 @@ package sacrifice.entities
 						velocity.y = Math.sin(angle) * 45;
 					}
 				}
+			} else {
+				velocity.x = 0;
+				velocity.y = 0;
 			}
 			
 			facing = velocity.x > 0 ? RIGHT : LEFT;

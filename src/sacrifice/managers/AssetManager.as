@@ -55,6 +55,9 @@ package sacrifice.managers
 		[Embed("../assets/images/wizard.png")]
 		private static const Wizard:Class;
 		
+		[Embed("../assets/images/shield.png")]
+		private static const Shield:Class;
+		
 		//----------------------------------
 		//  World
 		//----------------------------------

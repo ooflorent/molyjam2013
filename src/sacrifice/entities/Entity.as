@@ -83,6 +83,7 @@ package sacrifice.entities
 		public var originalOffset:FlxPoint;
 		public var originalWeaponOffset:FlxPoint;
 		public var gibs:FlxEmitter;
+		public var invincible:Boolean;
 		
 		//----------------------------------------------------------------------
 		//
@@ -117,7 +118,7 @@ package sacrifice.entities
 		
 		override public function hurt(damage:Number):void
 		{
-			if (getTimer() > invincibleTimer) {
+			if (!invincible && getTimer() > invincibleTimer) {
 				invincibleTimer = getTimer() + invincibleDuration;
 				onHurt();
 				

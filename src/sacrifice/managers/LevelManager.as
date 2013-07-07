@@ -16,6 +16,9 @@ package sacrifice.managers
 		public static const MAP_WIDTH:uint = 20;
 		public static const MAP_HEIGHT:uint = 15;
 		
+		[Embed("../assets/maps/00.xml", mimeType="application/octet-stream")]
+		public static const Map00:Class;
+		
 		[Embed("../assets/maps/01.xml", mimeType="application/octet-stream")]
 		public static const Map01:Class;
 		
@@ -128,6 +131,8 @@ package sacrifice.managers
 			
 			for (screen = 0; screen < screens; ++screen) {
 				if (0 == screen) {
+					level = getMap(1);
+				} else if (screen + 1 == screens) {
 					level = getMap(0);
 				} else {
 					level = getRandomMap();
