@@ -2,6 +2,8 @@ package sacrifice.managers
 {
 	import flash.utils.describeType;
 	
+	import org.flixel.plugin.photonstorm.FlxMath;
+	
 	import sacrifice.entities.Level;
 
 	public class LevelManager
@@ -168,7 +170,7 @@ package sacrifice.managers
 		
 		public static function getRandomMap():Object
 		{
-			return getMap(Math.round(Math.random() * (maps.length - 1)));
+			return getMap(FlxMath.rand(1, maps.length - 1));
 		}
 	}
 }
