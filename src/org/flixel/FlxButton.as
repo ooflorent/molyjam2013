@@ -289,7 +289,7 @@ package org.flixel
 		/**
 		 * Updates the size of the text field to match the button.
 		 */
-		override protected function resetHelpers():void
+		override public function resetHelpers():void
 		{
 			super.resetHelpers();
 			if(label != null)

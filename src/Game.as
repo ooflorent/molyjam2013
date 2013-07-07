@@ -5,6 +5,7 @@ package
 	
 	import sacrifice.managers.EntityManager;
 	import sacrifice.managers.LevelManager;
+	import sacrifice.states.MenuState;
 	import sacrifice.states.PlayState;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000")]
@@ -20,7 +21,7 @@ package
 		
 		public function Game()
 		{
-			super(160, 120, PlayState, 4);
+			super(160, 120, MenuState, 4);
 			
 			if (GameModel.DEBUG) {
 				FlxG.visualDebug = true;

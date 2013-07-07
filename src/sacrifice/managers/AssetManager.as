@@ -16,7 +16,10 @@ package sacrifice.managers
 		private static const Font:Class;	
 		
 		[Embed("../assets/images/hud.png")]
-		private static const HUD:Class;	
+		private static const HUD:Class;
+		
+		[Embed("../assets/images/smallButton.png")]
+		private static const SmallButton:Class;	
 		
 		[Embed("../assets/images/icons/bolt.png")]
 		private static const IconBolt:Class;	
