@@ -98,8 +98,13 @@ package sacrifice.managers
 			var row:String;
 			var ty:uint;
 			
-			for (; screen < screens; ++screen) {
-				level = getRandomMap();
+			for (screen = 0; screen < screens; ++screen) {
+				if (0 == screen) {
+					level = getMap(0);
+				} else {
+					level = getRandomMap();
+				}
+				
 				trace("Using " + level.name);
 				
 				for (ty = 0; ty < MAP_HEIGHT; ++ty) {
