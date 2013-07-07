@@ -1,9 +1,11 @@
 package sacrifice.entities
 {
+	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 	
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxRect;
 	import org.flixel.plugin.photonstorm.FlxControl;
 	import org.flixel.plugin.photonstorm.FlxControlHandler;
 	import org.flixel.plugin.photonstorm.FlxWeapon;
@@ -82,20 +84,13 @@ package sacrifice.entities
 
 		override public function update():void
 		{
-			super.update();
-			/*
-			if (isTouching(FLOOR)) {
-				jumpCount = 0;
-			}
+			var bulletBounds:FlxRect = new FlxRect(FlxG.camera.scroll.x, 0, FlxG.width, FlxG.height);
 			
-			if (FlxG.keys.justPressed("UP")) {
-				// Double jump available only when speed >= 4
-				if (0 == velocity.y || 4 <= speed && 1 == jumpCount) {
-					velocity.y = -maxVelocity.y;
-					jumpCount++;
-				}
-			}
-			*/
+			bolt.setBulletBounds(bulletBounds);
+			fireCone.setBulletBounds(bulletBounds);
+			meteorites.setBulletBounds(bulletBounds);
+			
+			super.update();
 		}
 		
 		override protected function onHurt():void

@@ -31,12 +31,13 @@ package sacrifice.entities
 		override public function update():void
 		{
 			if (chaseTarget) {
-				var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
-				
-				velocity.x = Math.cos(angle) * 60;
-				
-				if (flying) {
-					velocity.y = Math.sin(angle) * 60;
+				var distance:int = FlxVelocity.distanceBetween(this, chaseTarget);
+				if (distance < perception * 20) {
+					var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
+					velocity.x = Math.cos(angle) * 60;
+					if (flying) {
+						velocity.y = Math.sin(angle) * 60;
+					}
 				}
 			}
 			
