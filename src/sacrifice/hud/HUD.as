@@ -25,6 +25,16 @@ package sacrifice.hud
 			add(iconFireCone = new SpellIcon(22, 106, "IconFireCone"));
 			add(iconMeteorites = new SpellIcon(41, 106, "IconMeteorites"));
 			
+			hearts = new FlxSprite(58, 108);
+			hearts.loadGraphic(AssetManager.getClass("HUDHearts"), true, false, 50, 8);
+			
+			for (var heart:uint = 0; heart <= 5; ++heart) {
+				hearts.addAnimation("heart" + (5 - heart), [heart]);
+			}
+
+			hearts.play("heart5");
+			add(hearts);
+			
 			setAll("scrollFactor", new FlxPoint(0, 0));
 			setAll("cameras", [FlxG.camera]);
 		}
@@ -38,5 +48,11 @@ package sacrifice.hud
 		private var iconBolt:SpellIcon;
 		private var iconFireCone:SpellIcon;
 		private var iconMeteorites:SpellIcon;
+		private var hearts:FlxSprite;
+		
+		public function setPlayerHealth(health:uint):void
+		{
+			hearts.play("heart" + health);
+		}
 	}
 }

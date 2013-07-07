@@ -98,7 +98,9 @@ package sacrifice.states
 			add(playerBullets);
 			
 			// Build HUD
-			add(hud = new HUD);
+			hud = new HUD;
+			hud.setPlayerHealth(player.health);
+			add(hud);
 			
 			// Destructible but dangerous entities
 			hazards = new FlxGroup;
@@ -165,9 +167,14 @@ package sacrifice.states
 			
 			if (target is Bullet) {
 				target.kill();
+				return;
 			}
 			
 			target.hurt(1);
+			
+			if (target is Player) {
+				hud.setPlayerHealth(target.health);
+			}
 		}
 	}
 }
