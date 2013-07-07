@@ -31,6 +31,34 @@
 		</asset>
 		<characteristics>
 			<maxHealth>1</maxHealth>
+			<speed>2</speed>
+			<perception>5</perception>
+			<attack>5</attack>
+			<flying>1</flying>
+		</characteristics>
+	</entity>
+	<entity name="bee1">
+		<asset>
+			<name>Fly</name>
+			<width>8</width>
+			<height>8</height>
+		</asset>
+		<characteristics>
+			<maxHealth>2</maxHealth>
+			<speed>3</speed>
+			<perception>5</perception>
+			<attack>5</attack>
+			<flying>1</flying>
+		</characteristics>
+	</entity>
+	<entity name="bee2">
+		<asset>
+			<name>Fly</name>
+			<width>8</width>
+			<height>8</height>
+		</asset>
+		<characteristics>
+			<maxHealth>4</maxHealth>
 			<speed>3</speed>
 			<perception>5</perception>
 			<attack>5</attack>
@@ -48,7 +76,7 @@
 			<width>6</width>
 		</bounds>
 		<characteristics>
-			<maxHealth>1</maxHealth>
+			<maxHealth>5</maxHealth>
 			<speed>7</speed>
 			<perception>5</perception>
 			<attack>5</attack>
