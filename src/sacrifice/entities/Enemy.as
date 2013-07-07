@@ -1,6 +1,5 @@
 package sacrifice.entities
 {
-	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxTilemap;
 	import org.flixel.plugin.photonstorm.FlxVelocity;
@@ -32,10 +31,6 @@ package sacrifice.entities
 		override public function update():void
 		{
 			if (chaseTarget) {
-				/*if (!path) {
-					followPath(map.findPath(new FlxPoint(x, y), new FlxPoint(chaseTarget.x, chaseTarget.y)));
-				}*/
-				
 				var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
 				
 				velocity.x = Math.cos(angle) * 60;

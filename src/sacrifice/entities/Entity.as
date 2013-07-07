@@ -2,6 +2,7 @@ package sacrifice.entities
 {
 	import flash.utils.getTimer;
 	
+	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
@@ -80,6 +81,7 @@ package sacrifice.entities
 		public var flying:Boolean;
 		public var originalOffset:FlxPoint;
 		public var weaponOffset:FlxPoint;
+		public var gibs:FlxEmitter;
 		
 		//----------------------------------------------------------------------
 		//
@@ -134,6 +136,9 @@ package sacrifice.entities
 				return;
 			}
 			
+			gibs.at(this);
+			gibs.start(true, 0.3, 0, width + height);
+			
 			super.kill();
 		}
 		
@@ -146,6 +151,10 @@ package sacrifice.entities
 		public function create():void
 		{
 			originalOffset.copyTo(offset);
+			/*
+			gibs = new FlxEmitter();
+			gibs.a
+			*/
 		}
 		
 		protected function onHurt():void {}

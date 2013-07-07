@@ -8,7 +8,7 @@ package
 		//
 		//----------------------------------------------------------------------
 		
-		public static const DEBUG:Boolean = false;
+		public static const DEBUG:Boolean = true;
 		public static const TILE_SIZE:int = 8; 
 	}
 }

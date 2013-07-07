@@ -7,10 +7,9 @@ package sacrifice.states
 	import org.flixel.FlxRect;
 	import org.flixel.FlxState;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
-	import org.flixel.plugin.photonstorm.FlxVelocity;
 	
-	import sacrifice.entities.Enemy;
 	import sacrifice.entities.Entity;
+	import sacrifice.entities.Gibs;
 	import sacrifice.entities.Level;
 	import sacrifice.entities.Player;
 	import sacrifice.hud.HUD;
@@ -35,6 +34,7 @@ package sacrifice.states
 		// Entity groups
 		private var enemyBullets:FlxGroup;
 		private var playerBullets:FlxGroup;
+		private var gibs:Gibs;
 		
 		// Collision groups
 		private var bullets:FlxGroup;
@@ -51,6 +51,7 @@ package sacrifice.states
 		{
 			FlxG.mouse.hide();
 			
+			gibs = new Gibs;
 			enemyBullets = new FlxGroup;
 			playerBullets = new FlxGroup;
 			
@@ -72,6 +73,7 @@ package sacrifice.states
 			add(level.map);
 			add(level.enemies);
 			add(player);
+			add(gibs);
 			add(level.foreground);
 			
 			if (FlxG.visualDebug) {
@@ -106,12 +108,7 @@ package sacrifice.states
 			entities = new FlxGroup;
 			entities.add(player);
 			entities.add(level.enemies);
-			
-//			var enemy:Enemy = EntityManager.createEnemy("skeleton");
-//			enemy.x = 100;
-//			enemy.map;
-//			enemy.chaseTarget = player;
-//			enemies.add(enemy);
+			entities.setAll("gibs", gibs);
 		}
 		
 		private var entities:FlxGroup;
