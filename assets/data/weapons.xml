@@ -2,7 +2,25 @@
 	<weapon name="bolt">
 		<bullet type="pixel">
 			<color>0xff66ff66</color>
+			<width>3</width>
+			<height>3</height>
 		</bullet>
+		<characteristics>
+			<fireRate>50</fireRate>
+		</characteristics>
+	</weapon>
+	<weapon name="projectile">
+		<bullet type="bitmap">
+			<asset>BulletProjectile</asset>
+			<width>5</width>
+			<height>3</height>
+		</bullet>
+		<bounds>
+			<x>4</x>
+			<y>1</y>
+			<width>1</width>
+			<height>1</height>
+		</bounds>
 		<characteristics>
 			<fireRate>50</fireRate>
 		</characteristics>

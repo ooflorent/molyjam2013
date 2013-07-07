@@ -6,8 +6,8 @@ package sacrifice.states
 	import org.flixel.FlxObject;
 	import org.flixel.FlxRect;
 	import org.flixel.FlxState;
+	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	
-	import sacrifice.entities.Bullet;
 	import sacrifice.entities.Entity;
 	import sacrifice.entities.Level;
 	import sacrifice.entities.Player;

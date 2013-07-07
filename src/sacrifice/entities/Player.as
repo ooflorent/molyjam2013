@@ -63,7 +63,7 @@ package sacrifice.entities
 			super.create();
 			
 			bolt = WeaponManager.createWeapon("bolt");
-			bolt.setParent(this, "x", "y", offset.x + width, (offset.y + height) / 2);
+			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
 			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
 			
 			fireCone = new FlxWeapon("fireCone", this);

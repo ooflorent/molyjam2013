@@ -82,6 +82,12 @@ package sacrifice.managers
 				object.height = entity.bounds.height.length() ? int(entity.bounds.height) : (entity.asset.height - object.originalOffset.y);
 			}
 			
+			// Parse weapon position
+			if (entity.weapon) {
+				object.weaponOffset.x = int(entity.weapon.x);
+				object.weaponOffset.y = int(entity.weapon.y);
+			}
+			
 			// Custom entity initialization
 			object.create();
 			
