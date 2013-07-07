@@ -113,6 +113,7 @@ package sacrifice.entities
 					enemyType = "skeleton";
 					break;
 				
+				default:
 				case 2:
 					enemyType = "fly";
 					break;
