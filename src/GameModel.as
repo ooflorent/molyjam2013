@@ -9,6 +9,6 @@ package
 		//----------------------------------------------------------------------
 		
 		public static const DEBUG:Boolean = true;
-		public static const TILE_SIZE:int = 8; 
+		public static const TILE_SIZE:int = 8;
 	}
 }

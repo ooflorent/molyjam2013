@@ -90,11 +90,6 @@ package sacrifice.states
 			add(player);
 			add(gibs);
 			add(level.foreground);
-			
-			if (FlxG.visualDebug) {
-				add(level.lethal);
-			}
-			
 			add(enemyBullets);
 			add(playerBullets);
 			
@@ -140,6 +135,8 @@ package sacrifice.states
 			FlxG.overlap(lethal, objects, killObject);
 			FlxG.overlap(hazards, player, hurtObject);
 			FlxG.overlap(playerBullets, hazards, hurtObject);
+			
+			hud.setPlayerMana(player.willpower);
 		}
 		
 		//----------------------------------------------------------------------
@@ -150,7 +147,7 @@ package sacrifice.states
 		
 		private function destroyBullet(block:FlxObject, object:FlxObject):void
 		{
-			if (object is Bullet) {
+			if (object is Bullet && object.touching) {
 				object.kill();
 			}
 		}

@@ -28,7 +28,7 @@ package sacrifice.entities
 			add(foreground);
 		
 			map = new FlxTilemap();
-			map.loadMap(mapData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			map.loadMap(mapData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE, FlxTilemap.OFF, 0, 7, 7);
 			add(map);
 		
 			parseLethalZones(lethalData);
