@@ -40,6 +40,21 @@ package sacrifice.managers
 		[Embed("../assets/maps/08.xml", mimeType="application/octet-stream")]
 		public static const Map08:Class;
 		
+		[Embed("../assets/maps/09.xml", mimeType="application/octet-stream")]
+		public static const Map09:Class;
+		
+		[Embed("../assets/maps/10.xml", mimeType="application/octet-stream")]
+		public static const Map10:Class;
+		
+		[Embed("../assets/maps/11.xml", mimeType="application/octet-stream")]
+		public static const Map11:Class;
+		
+		[Embed("../assets/maps/12.xml", mimeType="application/octet-stream")]
+		public static const Map12:Class;
+		
+		[Embed("../assets/maps/13.xml", mimeType="application/octet-stream")]
+		public static const Map13:Class;
+		
 		//----------------------------------------------------------------------
 		//
 		//  Class variables
