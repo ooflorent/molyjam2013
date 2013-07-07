@@ -34,6 +34,7 @@ package sacrifice.states
 		
 		// Entity groups
 		private var blocks:FlxGroup;
+		private var lethal:FlxGroup;
 		private var enemyBullets:FlxGroup;
 		private var playerBullets:FlxGroup;
 		private var gibs:Gibs;
@@ -68,10 +69,14 @@ package sacrifice.states
 			level = LevelManager.generateLevel(5);
 			
 			blocks = new FlxGroup;
-			blocks.add(level.map);
 			blocks.add(new FlxTileblock(0, 0, level.map.width, GameModel.TILE_SIZE)); // Sky
 			blocks.add(new FlxTileblock(0, 0, GameModel.TILE_SIZE, level.map.height)); // Left
 			blocks.add(new FlxTileblock(level.map.width - GameModel.TILE_SIZE, 0, GameModel.TILE_SIZE, level.map.height)); // Right
+			blocks.add(level.map);
+			
+			lethal = new FlxGroup;
+			lethal.add(new FlxTileblock(0, 14 * GameModel.TILE_SIZE, level.map.width, GameModel.TILE_SIZE));
+			lethal.add(level.lethal);
 			
 			// Camera
 			FlxG.worldBounds = new FlxRect(0, 0, level.map.width, level.map.height);
@@ -126,11 +131,12 @@ package sacrifice.states
 		{
 			super.update();
 			
-			// Collisions
+			// Blocking collisions between entities
 			FlxG.collide(entities, entities);
-			FlxG.collide(blocks, objects);
-			FlxG.overlap(blocks, bullets, overlap);
-			FlxG.overlap(level.lethal, objects, lethalOverlap);
+			FlxG.collide(blocks, objects, destroyBullet);
+			
+			// Script collisions
+			FlxG.overlap(lethal, objects, killObject);
 			FlxG.overlap(hazards, player, overlap);
 			FlxG.overlap(playerBullets, hazards, overlap);
 		}
@@ -140,6 +146,18 @@ package sacrifice.states
 		//  Methods
 		//
 		//----------------------------------------------------------------------
+		
+		private function destroyBullet(block:FlxObject, object:FlxObject):void
+		{
+			if (object is Bullet) {
+				object.kill();
+			}
+		}
+		
+		private function killObject(lethal:FlxObject, object:FlxObject):void
+		{
+			object.kill();
+		}
 		
 		private function overlap(object1:FlxObject, object2:FlxObject):void
 		{
@@ -163,6 +181,7 @@ package sacrifice.states
 		
 		private function lethalOverlap(object1:FlxObject, object2:FlxObject):void
 		{
+			object2.kill();
 		}
 	}
 }
