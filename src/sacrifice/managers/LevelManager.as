@@ -41,7 +41,7 @@ package sacrifice.managers
 			for each (var map:XML in describeType(LevelManager).constant) {
 				var name:String = map.@name.toString();
 				if (0 == name.indexOf("Map")) {
-					maps.push(parseMap(map));
+					maps.push(parseMap(name, map));
 				}
 			}
 			
@@ -54,12 +54,14 @@ package sacrifice.managers
 			}
 		}
 		
-		private static function parseMap(xml:XML):Object
+		private static function parseMap(name:String, xml:XML):Object
 		{
 			xml = new XML(new LevelManager[xml.@name]);
 			
-			var map:Object = {};
 			var layer:XML;
+			var map:Object = {
+				name: name
+			};
 			
 			for each (layer in xml.layer) {
 				map[layer.@name] = layer.toString().split("\n");
@@ -86,6 +88,7 @@ package sacrifice.managers
 			
 			for (; screen < screens; ++screen) {
 				level = getRandomMap();
+				trace("Using " + level.name);
 				
 				for (ty = 0; ty < MAP_HEIGHT; ++ty) {
 					for each (layer in LAYERS) {
