@@ -84,8 +84,8 @@ package sacrifice.managers
 			
 			// Parse weapon position
 			if (entity.weapon) {
-				object.weaponOffset.x = int(entity.weapon.x);
-				object.weaponOffset.y = int(entity.weapon.y);
+				object.originalWeaponOffset.x = int(entity.weapon.x);
+				object.originalWeaponOffset.y = int(entity.weapon.y);
 			}
 			
 			// Custom entity initialization

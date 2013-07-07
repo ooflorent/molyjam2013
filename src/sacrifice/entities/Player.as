@@ -65,7 +65,6 @@ package sacrifice.entities
 			super.create();
 			
 			bolt = WeaponManager.createWeapon("bolt");
-			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
 			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
 			
 			fireCone = new FlxWeapon("fireCone", this);
@@ -84,13 +83,17 @@ package sacrifice.entities
 
 		override public function update():void
 		{
+			super.update();
+			
 			var bulletBounds:FlxRect = new FlxRect(FlxG.camera.scroll.x, 0, FlxG.width, FlxG.height);
 			
 			bolt.setBulletBounds(bulletBounds);
 			fireCone.setBulletBounds(bulletBounds);
 			meteorites.setBulletBounds(bulletBounds);
 			
-			super.update();
+			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
+			fireCone.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
+			meteorites.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
 		}
 		
 		override protected function onHurt():void
@@ -103,7 +106,7 @@ package sacrifice.entities
 		{
 			return function():void {
 				fireTime = getTimer() + fireDuration;
-				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
+				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 20);
 			}
 		}
 	}

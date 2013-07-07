@@ -25,8 +25,9 @@ package sacrifice.entities
 			addAnimation("attack", [6, 7], 20, true);
 			play("idle");
 			
-			originalOffset = new FlxPoint;
 			weaponOffset = new FlxPoint;
+			originalWeaponOffset = new FlxPoint;
+			originalOffset = new FlxPoint;
 		}
 		
 		//----------------------------------------------------------------------
@@ -79,8 +80,9 @@ package sacrifice.entities
 		public var speed:int;
 		public var perception:int;
 		public var flying:Boolean;
-		public var originalOffset:FlxPoint;
 		public var weaponOffset:FlxPoint;
+		public var originalOffset:FlxPoint;
+		public var originalWeaponOffset:FlxPoint;
 		public var gibs:FlxEmitter;
 		
 		//----------------------------------------------------------------------
@@ -91,6 +93,14 @@ package sacrifice.entities
 
 		override public function update():void
 		{
+			if (RIGHT == facing) {
+				offset.x = originalOffset.x;
+				weaponOffset.x = originalWeaponOffset.x;
+			} else {
+				offset.x = frameWidth - originalOffset.x - width;
+				weaponOffset.x = -originalWeaponOffset.x;
+			}
+			
 			super.update();
 			
 			if (x < 0) {
@@ -110,14 +120,6 @@ package sacrifice.entities
 			}
 			
 			invincibleCooldown -= FlxG.elapsed * invincibleDrag;
-			
-			/*
-			if (RIGHT == facing) {
-				offset.x = originalOffset.x;
-			} else {
-				offset.x = frameWidth - originalOffset.x - width;
-			}
-			*/
 		}
 		
 		override public function hurt(damage:Number):void
@@ -151,10 +153,7 @@ package sacrifice.entities
 		public function create():void
 		{
 			originalOffset.copyTo(offset);
-			/*
-			gibs = new FlxEmitter();
-			gibs.a
-			*/
+			originalWeaponOffset.copyTo(weaponOffset);
 		}
 		
 		protected function onHurt():void {}
