@@ -26,6 +26,9 @@ package sacrifice.hud
 			add(iconFireCone = new SpellIcon(22, 106, "IconFireCone"));
 			add(iconMeteorites = new SpellIcon(41, 106, "IconMeteorites"));
 			
+			iconFireCone.play("disabled");
+			iconMeteorites.play("disabled");
+			
 			hearts = new FlxSprite(58, 108);
 			hearts.loadGraphic(AssetManager.getClass("HUDHearts"), true, false, 50, 8);
 			

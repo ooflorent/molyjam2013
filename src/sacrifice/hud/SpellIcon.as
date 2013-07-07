@@ -15,7 +15,12 @@ package sacrifice.hud
 		
 		public function SpellIcon(x:Number, y:Number, asset:String)
 		{
-			super(x, y, AssetManager.getClass(asset));
+			super(x, y);
+			
+			loadGraphic(AssetManager.getClass(asset), true, false, 12, 12);
+			addAnimation("normal", [0]);
+			addAnimation("disabled", [1]);
+			play("normal");
 		}
 	}
 }

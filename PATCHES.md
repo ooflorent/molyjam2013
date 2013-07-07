@@ -10,6 +10,10 @@
     -override public function draw():void
     +override public function update():void
 
+`org.flixel.plugin.photonstorm.FlxWeapon`
+
+    +public var bulletDamage:Number = 1;
+
 `org.flixel.plugin.photonstorm.BaseTypes.Bullet`
 
     -protected var weapon:FlxWeapon;

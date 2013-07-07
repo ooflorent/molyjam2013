@@ -20,11 +20,11 @@ package sacrifice.entities
 			super();
 			
 			background = new FlxTilemap();
-			background.loadMap(backgroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			background.loadMap(backgroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE, FlxTilemap.OFF, 0, 1, 100);
 			add(background);
 		
 			foreground = new FlxTilemap();
-			foreground.loadMap(foregroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			foreground.loadMap(foregroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE, FlxTilemap.OFF, 0, 1, 100);
 			add(foreground);
 		
 			map = new FlxTilemap();

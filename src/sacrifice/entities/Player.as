@@ -86,6 +86,10 @@ package sacrifice.entities
 
 			var bulletBounds:FlxRect = new FlxRect(FlxG.camera.scroll.x, 0, FlxG.width, FlxG.height);
 			
+			bolt.bulletDamage = willpower;
+			fireCone.bulletDamage = willpower;
+			meteorites.bulletDamage = willpower;
+			
 			bolt.setBulletBounds(bulletBounds);
 			fireCone.setBulletBounds(bulletBounds);
 			meteorites.setBulletBounds(bulletBounds);

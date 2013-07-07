@@ -9,6 +9,7 @@ package sacrifice.states
 	import org.flixel.FlxTileblock;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	
+	import sacrifice.entities.Entity;
 	import sacrifice.entities.Gibs;
 	import sacrifice.entities.Level;
 	import sacrifice.entities.Player;
@@ -161,8 +162,14 @@ package sacrifice.states
 		
 		private function hurtObject(source:FlxObject, target:FlxObject):void
 		{
+			var damage:uint;
 			if (source is Bullet) {
 				source.kill();
+				damage = Bullet(source).weapon.bulletDamage;
+			} else if (source is Entity) {
+				damage = Entity(source).attack;
+			} else {
+				damage = 1;
 			}
 			
 			if (target is Bullet) {
@@ -170,7 +177,7 @@ package sacrifice.states
 				return;
 			}
 			
-			target.hurt(1);
+			target.hurt(damage);
 			
 			if (target is Player) {
 				hud.setPlayerHealth(target.health);

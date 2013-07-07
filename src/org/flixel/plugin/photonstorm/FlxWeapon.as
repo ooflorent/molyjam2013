@@ -14,8 +14,9 @@
 
 package org.flixel.plugin.photonstorm 
 {
-	import org.flixel.*;
 	import flash.utils.getTimer;
+	
+	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	import org.flixel.plugin.photonstorm.FlxVelocity;
 	
@@ -72,6 +73,7 @@ package org.flixel.plugin.photonstorm
 		
 		public var multiShot:uint = 0;
 		
+		public var bulletDamage:Number = 1;
 		public var bulletLifeSpan:uint = 0;
 		public var bulletElasticity:Number = 0;
 		

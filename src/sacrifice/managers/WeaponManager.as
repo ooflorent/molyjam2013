@@ -3,7 +3,6 @@ package sacrifice.managers
 	import flash.utils.Dictionary;
 	
 	import org.flixel.plugin.photonstorm.FlxWeapon;
-	import org.flixel.plugin.sacrifice.FlxExtendedWeapon;
 
 	public class WeaponManager
 	{
@@ -40,13 +39,13 @@ package sacrifice.managers
 			}
 		}
 		
-		public static function createWeapon(name:String):FlxExtendedWeapon
+		public static function createWeapon(name:String):FlxWeapon
 		{
 			if (!name) {
 				throw new Error("Weapon name is required");
 			}
 			
-			var object:FlxExtendedWeapon = new FlxExtendedWeapon(name);
+			var object:FlxWeapon = new FlxWeapon(name);
 			var weapon:XML = weapons[name];
 			if (!weapon) {
 				throw new Error("Unknown weapon '" + name + "'");
