@@ -5,6 +5,7 @@ package
 	
 	import sacrifice.managers.EntityManager;
 	import sacrifice.managers.LevelManager;
+	import sacrifice.managers.WeaponManager;
 	import sacrifice.states.PlayState;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000")]
@@ -29,6 +30,7 @@ package
 			
 			EntityManager.init();
 			LevelManager.init();
+			WeaponManager.init();
 		}
 	}
 }

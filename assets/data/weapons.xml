@@ -1,0 +1,10 @@
+<weapons>
+	<weapon name="bolt">
+		<bullet type="pixel">
+			<color>0xff66ff66</color>
+		</bullet>
+		<characteristics>
+			<fireRate>50</fireRate>
+		</characteristics>
+	</weapon>
+</weapons>
