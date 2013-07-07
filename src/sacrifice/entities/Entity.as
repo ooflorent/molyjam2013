@@ -25,6 +25,7 @@ package sacrifice.entities
 			play("idle");
 			
 			originalOffset = new FlxPoint;
+			weaponOffset = new FlxPoint;
 		}
 		
 		//----------------------------------------------------------------------
@@ -76,8 +77,9 @@ package sacrifice.entities
 		public var attack:int;
 		public var speed:int;
 		public var perception:int;
-		public var originalOffset:FlxPoint;
 		public var flying:Boolean;
+		public var originalOffset:FlxPoint;
+		public var weaponOffset:FlxPoint;
 		
 		//----------------------------------------------------------------------
 		//

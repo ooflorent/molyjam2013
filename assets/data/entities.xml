@@ -9,6 +9,10 @@
 			<x>1</x>
 			<width>6</width>
 		</bounds>
+		<weapon>
+			<x>10</x>
+			<y>3</y>
+		</weapon>
 		<characteristics>
 			<maxHealth>5</maxHealth>
 			<maxMana>5</maxMana>

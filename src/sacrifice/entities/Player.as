@@ -8,6 +8,8 @@ package sacrifice.entities
 	import org.flixel.plugin.photonstorm.FlxControlHandler;
 	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
+	import sacrifice.managers.WeaponManager;
+	
 	public class Player extends Entity
 	{
 		//----------------------------------------------------------------------
@@ -26,24 +28,6 @@ package sacrifice.entities
 			
 			facing = RIGHT;
 			invincibleDrag = 5;
-			
-			bolt = new FlxWeapon("bolt", this);
-			bolt.makePixelBullet(20);
-			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
-			bolt.setFireRate(1);
-			
-			fireCone = new FlxWeapon("fireCone", this);
-			fireCone.setPreFireCallback(bulletDirectionCallback(fireCone));
-			
-			meteorites = new FlxWeapon("meteorites", this);
-			meteorites.setPreFireCallback(bulletDirectionCallback(meteorites));
-			
-			FlxControl.create(this, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, true, false);
-			FlxControl.player1.setCursorControl(false, false, true, true);
-			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 200);
-			FlxControl.player1.setMovementSpeed(400, 0, 100, 200, 400, 0);
-			FlxControl.player1.setGravity(0, 700);
-			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, fireDuration, bolt.fire)
 		}
 		
 		//----------------------------------------------------------------------
@@ -73,22 +57,33 @@ package sacrifice.entities
 		//  Overridden methods
 		//
 		//----------------------------------------------------------------------
+		
+		override public function create():void
+		{
+			super.create();
+			
+			bolt = WeaponManager.createWeapon("bolt");
+			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
+			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
+			
+			fireCone = new FlxWeapon("fireCone", this);
+			fireCone.setPreFireCallback(bulletDirectionCallback(fireCone));
+			
+			meteorites = new FlxWeapon("meteorites", this);
+			meteorites.setPreFireCallback(bulletDirectionCallback(meteorites));
+			
+			FlxControl.create(this, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, true, false);
+			FlxControl.player1.setCursorControl(false, false, true, true);
+			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 200);
+			FlxControl.player1.setMovementSpeed(400, 0, 100, 200, 400, 0);
+			FlxControl.player1.setGravity(0, 700);
+			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, fireDuration, bolt.fire)
+		}
 
 		override public function update():void
 		{
 			super.update();
 			/*
-			updateMetrics();
-			super.update();
-
-			if (FlxG.keys.LEFT) {
-				facing = LEFT;
-				acceleration.x -= drag.x;
-			} else if (FlxG.keys.RIGHT) {
-				facing = RIGHT;
-				acceleration.x += drag.x;
-			}
-
 			if (isTouching(FLOOR)) {
 				jumpCount = 0;
 			}
@@ -98,14 +93,6 @@ package sacrifice.entities
 				if (0 == velocity.y || 4 <= speed && 1 == jumpCount) {
 					velocity.y = -maxVelocity.y;
 					jumpCount++;
-				}
-			}
-			
-			if (0 >= attackCooldown) {
-				if (FlxG.keys.justPressed("X") || FlxG.keys.justPressed("C") || FlxG.keys.justPressed("V")) {
-					getMidpoint(_point);
-					Bullet(bullets.recycle(Bullet)).shoot(_point, facing);
-					attackCooldown = 1;
 				}
 			}
 			*/
