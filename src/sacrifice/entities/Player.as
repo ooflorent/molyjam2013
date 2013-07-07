@@ -106,7 +106,7 @@ package sacrifice.entities
 		{
 			return function():void {
 				fireTime = getTimer() + fireDuration;
-				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 20);
+				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
 			}
 		}
 	}

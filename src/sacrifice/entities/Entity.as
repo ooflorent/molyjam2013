@@ -103,10 +103,6 @@ package sacrifice.entities
 			
 			super.update();
 			
-			if (x < 0) {
-				x = 0;
-			}
-			
 			if (getTimer() < fireTime) {
 				play("attack");
 			} else if (touching == FLOOR) {

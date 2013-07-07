@@ -6,6 +6,7 @@ package sacrifice.states
 	import org.flixel.FlxObject;
 	import org.flixel.FlxRect;
 	import org.flixel.FlxState;
+	import org.flixel.FlxTileblock;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	
 	import sacrifice.entities.Entity;
@@ -32,6 +33,7 @@ package sacrifice.states
 		private var level:Level;
 		
 		// Entity groups
+		private var blocks:FlxGroup;
 		private var enemyBullets:FlxGroup;
 		private var playerBullets:FlxGroup;
 		private var gibs:Gibs;
@@ -56,7 +58,7 @@ package sacrifice.states
 			playerBullets = new FlxGroup;
 			
 			player = EntityManager.createPlayer("wizard");
-			player.x = GameModel.TILE_SIZE * 0;
+			player.x = GameModel.TILE_SIZE * 1;
 			player.y = GameModel.TILE_SIZE * 11;
 			
 			playerBullets.add(player.bolt.group);
@@ -65,13 +67,19 @@ package sacrifice.states
 			
 			level = LevelManager.generateLevel(5);
 			
+			blocks = new FlxGroup;
+			blocks.add(level.map);
+			blocks.add(new FlxTileblock(0, 0, level.map.width, GameModel.TILE_SIZE)); // Sky
+			blocks.add(new FlxTileblock(0, 0, GameModel.TILE_SIZE, level.map.height)); // Left
+			blocks.add(new FlxTileblock(level.map.width - GameModel.TILE_SIZE, 0, GameModel.TILE_SIZE, level.map.height)); // Right
+			
 			// Camera
 			FlxG.worldBounds = new FlxRect(0, 0, level.map.width, level.map.height);
 			FlxG.camera.setBounds(0, 0, level.map.width, level.map.height, true);
 			FlxG.camera.follow(player, FlxCamera.STYLE_PLATFORMER);
 			
 			add(level.background);
-			add(level.map);
+			add(blocks);
 			add(level.enemies);
 			add(player);
 			add(gibs);
@@ -120,8 +128,8 @@ package sacrifice.states
 			
 			// Collisions
 			FlxG.collide(entities, entities);
-			FlxG.collide(level.map, objects);
-			FlxG.overlap(level.map, bullets, overlap);
+			FlxG.collide(blocks, objects);
+			FlxG.overlap(blocks, bullets, overlap);
 			FlxG.overlap(level.lethal, objects, lethalOverlap);
 			FlxG.overlap(hazards, player, overlap);
 			FlxG.overlap(playerBullets, hazards, overlap);
