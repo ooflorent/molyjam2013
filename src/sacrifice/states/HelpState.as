@@ -18,23 +18,23 @@ package sacrifice.states
 			var title: TextTitle = new TextTitle(0, 4, 160, "HOW TO PLAY");
 			add(title);
 			
-			var firstLine:FlxText = new FlxText(0, 27, 160, "Use LEFT/RIGHT to move");
+			var firstLine:FlxText = new FlxText(0, 32, 160, "Use LEFT/RIGHT to move");
 			firstLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
 			add(firstLine);
 			
-			var secondLine:FlxText = new FlxText(0, 40, 160, "Use UP to jump");
+			var secondLine:FlxText = new FlxText(0, 47, 160, "Use UP to jump");
 			secondLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
 			add(secondLine);
 
-			var thirdLine:FlxText = new FlxText(0, 53, 160, "Use DOWN to block");
+			/*var thirdLine:FlxText = new FlxText(0, 53, 160, "Use DOWN to block");
 			thirdLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
-			add(thirdLine);
+			add(thirdLine);*/
 
-			var fourthLine:FlxText = new FlxText(0, 66, 160, "Use X to cast bolts");
+			var fourthLine:FlxText = new FlxText(0, 62, 160, "Use X to cast bolts");
 			fourthLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
 			add(fourthLine);
 			
-			var fifthLine:FlxText = new FlxText(0, 81, 160, "Sacrifice yourself!");
+			var fifthLine:FlxText = new FlxText(0, 78, 160, "Sacrifice yourself!");
 			fifthLine.setFormat("AESystematicTT", 12, 0xFFFFFF, "center");
 			add(fifthLine);
 
