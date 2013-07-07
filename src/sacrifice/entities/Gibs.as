@@ -4,14 +4,26 @@ package sacrifice.entities
 	
 	public class Gibs extends FlxEmitter
 	{
-		public function Gibs(x:Number = 0, y:Number = 0)
+		//----------------------------------------------------------------------
+		//
+		//  Constructor
+		//
+		//----------------------------------------------------------------------
+		
+		public function Gibs()
 		{
-			super(x, y, 0);
+			super();
 			particleClass = Gib;
 			makeGib(200);
 		}
 		
-		public function makeGib(quantity:uint):void
+		//----------------------------------------------------------------------
+		//
+		//  Methods
+		//
+		//----------------------------------------------------------------------
+		
+		private function makeGib(quantity:uint):void
 		{
 			var gib:Gib;
 			var i:uint;
@@ -30,6 +42,12 @@ import org.flixel.FlxSprite;
 
 internal class Gib extends FlxParticle
 {
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+	
 	public function Gib()
 	{
 		super();
@@ -39,17 +57,19 @@ internal class Gib extends FlxParticle
 		makeGraphic(size, size);
 	}
 	
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+	
 	private var originLifespan:Number;
 	
-	override public function loadGraphic(Graphic:Class, Animated:Boolean=false, Reverse:Boolean=false, Width:uint=0, Height:uint=0, Unique:Boolean=false):FlxSprite
-	{
-		return this;
-	}
-	
-	override public function loadRotatedGraphic(Graphic:Class, Rotations:uint=16, Frame:int=-1, AntiAliasing:Boolean=false, AutoBuffer:Boolean=false):FlxSprite
-	{
-		return this;
-	}
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden methods
+	//
+	//--------------------------------------------------------------------------
 	
 	override public function onEmit():void
 	{
@@ -62,4 +82,7 @@ internal class Gib extends FlxParticle
 		alpha = lifespan / originLifespan;
 		super.update();
 	}
+	
+	override public function loadGraphic(graphic:Class, animated:Boolean = false, reverse:Boolean = false, width:uint = 0, height:uint = 0, unique:Boolean = false):FlxSprite { return this; }
+	override public function loadRotatedGraphic(graphic:Class, rotations:uint = 16, frame:int = -1, antiAliasing:Boolean = false, autoBuffer:Boolean = false):FlxSprite { return this; }
 }
