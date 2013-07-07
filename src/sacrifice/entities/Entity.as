@@ -146,7 +146,6 @@ package sacrifice.entities
 		public function create():void
 		{
 			originalOffset.copyTo(offset);
-			updateMetrics();
 		}
 		
 		protected function onHurt():void {}

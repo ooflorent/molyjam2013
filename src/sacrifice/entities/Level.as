@@ -3,9 +3,9 @@ package sacrifice.entities
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxTilemap;
-	import org.flixel.plugin.photonstorm.FlxLinkedGroup;
 	
 	import sacrifice.managers.AssetManager;
+	import sacrifice.managers.EntityManager;
 
 	public class Level extends FlxGroup
 	{
@@ -15,31 +15,24 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 		
-		public function Level(backgroundData:String, foregroundData:String, mapData:String, lethalData:String)
+		public function Level(backgroundData:String, foregroundData:String, mapData:String, lethalData:String, enemiesData:String)
 		{
 			super();
 			
-			if (backgroundData) {
-				background = new FlxTilemap();
-				background.loadMap(backgroundData, AssetManager.getClass("TilesetBlocks"), 8, 8, FlxTilemap.OFF);
-				add(background);
-			}
-			
-			if (foregroundData) {
-				foreground = new FlxTilemap();
-				foreground.loadMap(foregroundData, AssetManager.getClass("TilesetBlocks"), 8, 8, FlxTilemap.OFF);
-				add(foreground);
-			}
-			
-			if (lethalData) {
-				map = new FlxTilemap();
-				map.loadMap(mapData, AssetManager.getClass("TilesetBlocks"), 8, 8, FlxTilemap.OFF);
-				add(map);
-			}
-			
-			if (lethalData) {
-				parseLethalZones(lethalData);
-			}
+			background = new FlxTilemap();
+			background.loadMap(backgroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			add(background);
+		
+			foreground = new FlxTilemap();
+			foreground.loadMap(foregroundData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			add(foreground);
+		
+			map = new FlxTilemap();
+			map.loadMap(mapData, AssetManager.getClass("TilesetBlocks"), GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+			add(map);
+		
+			parseLethalZones(lethalData);
+			parseEnemySpawns(enemiesData);
 		}
 		
 		//----------------------------------------------------------------------
@@ -51,7 +44,8 @@ package sacrifice.entities
 		public var background:FlxTilemap;
 		public var foreground:FlxTilemap;
 		public var map:FlxTilemap;
-		public var lethal:FlxLinkedGroup;
+		public var lethal:FlxGroup;
+		public var enemies:FlxGroup;
 		
 		//----------------------------------------------------------------------
 		//
@@ -61,30 +55,75 @@ package sacrifice.entities
 		
 		private function parseLethalZones(data:String):void
 		{
-			lethal = new FlxLinkedGroup;
+			var tmp:FlxTilemap;
 			
-			var map:FlxTilemap = new FlxTilemap;
-			map.loadMap(data, AssetManager.getClass("TilesetBlocks"));
+			tmp = new FlxTilemap;
+			tmp.loadMap(data, AssetManager.getClass("TilesetBlocks"));
 			
 			var tx:uint;
 			var ty:uint;
 			
-			for (; ty < map.heightInTiles; ++ty) {
-				for (; tx < map.widthInTiles; ++tx) {
-					if (1 == map.getTile(tx, ty)) {
+			lethal = new FlxGroup;
+			for (; ty < tmp.heightInTiles; ++ty) {
+				for (; tx < tmp.widthInTiles; ++tx) {
+					if (1 == tmp.getTile(tx, ty)) {
 						lethal.add(createLethalBox(tx, ty));
 					}
 				}
 			}
+			
+			tmp.destroy();
 		}
 		
-		private function createLethalBox(x:uint, y:uint):FlxObject
+		private function parseEnemySpawns(data:String):void
 		{
-			var size:uint = GameModel.TILE_SIZE;
-			var box:FlxObject = new FlxObject(x * size, y * size, size, size);
+			var tmp:FlxTilemap;
 			
-			box.solid = true;
-			return box;
+			tmp = new FlxTilemap;
+			tmp.loadMap(data, AssetManager.getClass("TilesetBlocks"));
+			
+			var tx:uint;
+			var ty:uint;
+			var type:uint;
+			
+			enemies = new FlxGroup;
+			for (ty = 0; ty < tmp.heightInTiles; ++ty) {
+				for (tx = 0; tx < tmp.widthInTiles; ++tx) {
+					if (0 != (type = tmp.getTile(tx, ty))) {
+						enemies.add(createEnemy(tx, ty, type));
+					}
+				}
+			}
+			
+			tmp.destroy();
+		}
+		
+		private function createLethalBox(tx:uint, ty:uint):FlxObject
+		{
+			return new FlxObject(tx * GameModel.TILE_SIZE, ty * GameModel.TILE_SIZE, GameModel.TILE_SIZE, GameModel.TILE_SIZE);
+		}
+		
+		private function createEnemy(tx:uint, ty:uint, type:uint):Enemy
+		{
+			var enemy:Enemy;
+			var enemyType:String;
+			
+			switch (type) {
+				case 1:
+					enemyType = "skeleton";
+					break;
+				
+				case 2:
+					enemyType = "fly";
+					break;
+			}
+			
+			enemy = EntityManager.createEnemy(enemyType);
+			enemy.x = tx * GameModel.TILE_SIZE;
+			enemy.y = ty * GameModel.TILE_SIZE;
+			enemy.map = map;
+			
+			return enemy;
 		}
 	}
 }
