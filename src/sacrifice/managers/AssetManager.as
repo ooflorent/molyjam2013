@@ -21,6 +21,9 @@ package sacrifice.managers
 		[Embed("../assets/images/hearts.png")]
 		private static const HUDHearts:Class;
 		
+		[Embed("../assets/images/mana.png")]
+		private static const HUDMana:Class;
+		
 		[Embed("../assets/images/smallButton.png")]
 		private static const SmallButton:Class;	
 		

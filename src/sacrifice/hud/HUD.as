@@ -18,6 +18,7 @@ package sacrifice.hud
 		public function HUD()
 		{
 			super();
+			var i:uint;
 			
 			add(new FlxSprite(0, 104, AssetManager.getClass("HUD")));
 			
@@ -28,12 +29,22 @@ package sacrifice.hud
 			hearts = new FlxSprite(58, 108);
 			hearts.loadGraphic(AssetManager.getClass("HUDHearts"), true, false, 50, 8);
 			
-			for (var heart:uint = 0; heart <= 5; ++heart) {
-				hearts.addAnimation("heart" + (5 - heart), [heart]);
+			for (i = 0; i <= 5; ++i) {
+				hearts.addAnimation("heart" + (5 - i), [i]);
 			}
 
 			hearts.play("heart5");
 			add(hearts);
+			
+			mana = new FlxSprite(115, 108);
+			mana.loadGraphic(AssetManager.getClass("HUDMana"), true, false, 37, 8);
+			
+			for (i = 0; i <= 5; ++i) {
+				mana.addAnimation("mana" + (5 - i), [i]);
+			}
+
+			mana.play("mana5");
+			add(mana);
 			
 			setAll("scrollFactor", new FlxPoint(0, 0));
 			setAll("cameras", [FlxG.camera]);
@@ -49,10 +60,16 @@ package sacrifice.hud
 		private var iconFireCone:SpellIcon;
 		private var iconMeteorites:SpellIcon;
 		private var hearts:FlxSprite;
+		private var mana:FlxSprite;
 		
-		public function setPlayerHealth(health:uint):void
+		public function setPlayerHealth(value:uint):void
 		{
-			hearts.play("heart" + health);
+			hearts.play("heart" + value);
+		}
+		
+		public function setPlayerMana(value:uint):void
+		{
+			mana.play("mana" + value);
 		}
 	}
 }
