@@ -25,7 +25,7 @@ package
 			super(160, 120, GameModel.DEBUG ? PlayState : SplashState, 4);
 			
 			if (GameModel.DEBUG) {
-				FlxG.visualDebug = true;
+				FlxG.visualDebug = false;
 				forceDebugger = true;
 			}
 			
