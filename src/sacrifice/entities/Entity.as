@@ -127,10 +127,6 @@ package sacrifice.entities
 		
 		override public function kill():void
 		{
-			if (!alive) {
-				return;
-			}
-			
 			gibs.at(this);
 			gibs.start(true, 0.3, 0, width + height);
 			

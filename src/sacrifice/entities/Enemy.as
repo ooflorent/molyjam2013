@@ -34,9 +34,9 @@ package sacrifice.entities
 				var distance:int = FlxVelocity.distanceBetween(this, chaseTarget);
 				if (distance < perception * 20) {
 					var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
-					velocity.x = Math.cos(angle) * 60;
+					velocity.x = Math.cos(angle) * 45;
 					if (flying) {
-						velocity.y = Math.sin(angle) * 60;
+						velocity.y = Math.sin(angle) * 45;
 					}
 				}
 			}
