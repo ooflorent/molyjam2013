@@ -33,7 +33,7 @@
 			<maxHealth>1</maxHealth>
 			<speed>2</speed>
 			<perception>5</perception>
-			<attack>5</attack>
+			<attack>1</attack>
 			<flying>1</flying>
 		</characteristics>
 	</entity>
@@ -47,7 +47,7 @@
 			<maxHealth>2</maxHealth>
 			<speed>3</speed>
 			<perception>5</perception>
-			<attack>5</attack>
+			<attack>1</attack>
 			<flying>1</flying>
 		</characteristics>
 	</entity>
@@ -61,7 +61,7 @@
 			<maxHealth>4</maxHealth>
 			<speed>3</speed>
 			<perception>5</perception>
-			<attack>5</attack>
+			<attack>1</attack>
 			<flying>1</flying>
 		</characteristics>
 	</entity>
@@ -79,7 +79,7 @@
 			<maxHealth>5</maxHealth>
 			<speed>7</speed>
 			<perception>5</perception>
-			<attack>5</attack>
+			<attack>1</attack>
 			<flying>false</flying>
 		</characteristics>
 	</entity>
