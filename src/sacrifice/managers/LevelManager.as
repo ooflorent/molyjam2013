@@ -2,7 +2,7 @@ package sacrifice.managers
 {
 	import flash.utils.describeType;
 	
-	import org.flixel.FlxTilemap;
+	import sacrifice.entities.Level;
 
 	public class LevelManager
 	{
@@ -13,10 +13,11 @@ package sacrifice.managers
 		//----------------------------------------------------------------------
 		
 		public static const MAP_WIDTH:uint = 20;
-		public static const MAP_HEIGHT:uint = 13;
+		public static const MAP_HEIGHT:uint = 15;
 		
-		[Embed("../assets/maps/01.tmx", mimeType="application/octet-stream")]
+		[Embed("../assets/maps/01.xml", mimeType="application/octet-stream")]
 		public static const Map01:Class;
+		
 		/*
 		[Embed("../assets/maps/02.tmx", mimeType="application/octet-stream")]
 		public static const Map02:Class;
@@ -27,7 +28,7 @@ package sacrifice.managers
 		//
 		//----------------------------------------------------------------------
 		
-		private static var maps:Vector.<Level>;
+		private static var maps:Array;
 		
 		//----------------------------------------------------------------------
 		//
@@ -37,7 +38,7 @@ package sacrifice.managers
 		
 		public static function init():void
 		{
-			maps = new <Level>[];
+			maps = [];
 			
 			for each (var map:XML in describeType(LevelManager).constant) {
 				var name:String = map.@name.toString();
@@ -47,50 +48,34 @@ package sacrifice.managers
 			}
 		}
 		
-		private static function parseMap(xml:XML):Level
+		private static function parseMap(xml:XML):Object
 		{
 			xml = new XML(new LevelManager[xml.@name]);
+			
+			var layers:Object = {};
+			var layer:XML;
+			
+			for each (layer in xml.layer) {
+				layers[layer.@name] = layer;
+			}
+
+			return layers;
+		}
+		
+		public static function getMap(index:uint):Level
+		{
+			var data:Object = maps[index % maps.length];
 			return new Level(
-				parseLayer(xml.layer.(@name == "background")[0]),
-				parseLayer(xml.layer.(@name == "blocks")[0]),
-				parseLayer(xml.layer.(@name == "lethal")[0]),
-				parseLayer(xml.layer.(@name == "foreground")[0])
+				data.background,
+				data.foreground,
+				data.blocks,
+				data.lethal
 			);
 		}
 		
-		private static function parseLayer(xml:XML):String
+		public static function getRandomMap():Level
 		{
-			if (!xml) {
-				return null;
-			}
-			
-			var tiles:Array = xml.data.toString().replace(/\n/g, "").split(",");
-			var i:uint;
-			var n:uint = tiles.length;
-			
-			for (; i < n; ++i) {
-				if (tiles[i] != "0") {
-					tiles[i] = int(tiles[i]) - 1;
-				}
-			}
-			
-			return FlxTilemap.arrayToCSV(tiles, MAP_WIDTH);
-		}
-		
-		public static function generate():Object
-		{
-			var level:Level = maps[Math.round(Math.random() * (maps.length - 1))];
-			var maps:Object = {};
-			var map:FlxTilemap;
-			
-			for each (var layer:String in ["background", "blocks", "lethal", "foreground"]) {
-				if (level[layer]) {
-					map = maps[layer] = new FlxTilemap();
-					map.loadMap(level[layer], AssetManager.getClass("TilesetBlocks"), 8, 8, FlxTilemap.OFF);
-				}
-			}
-			
-			return maps;
+			return getMap(Math.round(Math.random() * (maps.length - 1)));
 		}
 	}
 }

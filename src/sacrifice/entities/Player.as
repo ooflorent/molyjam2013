@@ -2,6 +2,9 @@ package sacrifice.entities
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.plugin.photonstorm.FlxControl;
+	import org.flixel.plugin.photonstorm.FlxControlHandler;
+	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
 	public class Player extends Entity
 	{
@@ -14,7 +17,30 @@ package sacrifice.entities
 		public function Player()
 		{
 			super();
+			
+			if (FlxG.getPlugin(FlxControl) == null) {
+				FlxG.addPlugin(new FlxControl);
+			}
+			
 			facing = RIGHT;
+			invincibleDrag = 5;
+			
+			bolt = new FlxWeapon("bolt", this);
+			bolt.makePixelBullet(1);
+			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
+			
+			fireCone = new FlxWeapon("fireCone", this);
+			fireCone.setPreFireCallback(bulletDirectionCallback(fireCone));
+			
+			meteorites = new FlxWeapon("meteorites", this);
+			meteorites.setPreFireCallback(bulletDirectionCallback(meteorites));
+			
+			FlxControl.create(this, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, true, false);
+			FlxControl.player1.setCursorControl(false, false, true, true);
+			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 200);
+			FlxControl.player1.setMovementSpeed(400, 0, 100, 200, 400, 0);
+			FlxControl.player1.setGravity(0, 700);
+			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, 0, bolt.fire)
 		}
 		
 		//----------------------------------------------------------------------
@@ -31,18 +57,26 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 
-		public var bullets:FlxGroup;
+		//----------------------------------
+		//  Weapons
+		//----------------------------------
+		
+		public var bolt:FlxWeapon;
+		public var fireCone:FlxWeapon;
+		public var meteorites:FlxWeapon;
 		
 		//----------------------------------------------------------------------
 		//
 		//  Overridden methods
 		//
 		//----------------------------------------------------------------------
-		
+
+		/*
 		override public function update():void
 		{
 			updateMetrics();
-			
+			super.update();
+
 			if (FlxG.keys.LEFT) {
 				facing = LEFT;
 				acceleration.x -= drag.x;
@@ -70,8 +104,20 @@ package sacrifice.entities
 					attackCooldown = 1;
 				}
 			}
-			
-			super.update();
+		}
+		*/
+		
+		override protected function onHurt():void
+		{
+			FlxG.camera.shake(0.005, 0.25);
+			FlxG.camera.flash(0x77700000, 0.07);
+		}
+		
+		private function bulletDirectionCallback(weapon:FlxWeapon):Function
+		{
+			return function():void {
+				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
+			}
 		}
 	}
 }

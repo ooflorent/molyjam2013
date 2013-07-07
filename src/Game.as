@@ -22,7 +22,10 @@ package
 		{
 			super(160, 120, PlayState, 4);
 			
-			FlxG.visualDebug = true;
+			if (GameModel.DEBUG) {
+				FlxG.visualDebug = true;
+				forceDebugger = true;
+			}
 			
 			EntityManager.init();
 			LevelManager.init();

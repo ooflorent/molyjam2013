@@ -32,6 +32,8 @@ package sacrifice.entities
 		//----------------------------------------------------------------------
 		
 		protected var attackCooldown:Number = 0;
+		protected var invincibleCooldown:Number = 0;
+		protected var invincibleDrag:Number = 10;
 		
 		//----------------------------------------------------------------------
 		//
@@ -82,24 +84,53 @@ package sacrifice.entities
 
 		override public function update():void
 		{
+			super.update();
+			
+			if (x < 0) {
+				x = 0;
+			}
+			
 			if (attackCooldown > 0) {
 				attackCooldown -= FlxG.elapsed * 6;
 				play("attack");
-			} else if (0 != velocity.y) {
-				play("jump");
-			} else if (0 != velocity.x) {
-				play("walk");
+			} else if (touching == FLOOR) {
+				if (0 != velocity.x) {
+					play("walk");
+				} else {
+					play("idle");
+				}
 			} else {
-				play("idle");
+				play("jump");
 			}
 			
+			invincibleCooldown -= FlxG.elapsed * invincibleDrag;
+			
+			/*
 			if (RIGHT == facing) {
 				offset.x = originalOffset.x;
 			} else {
 				offset.x = frameWidth - originalOffset.x - width;
 			}
+			*/
+		}
+		
+		override public function hurt(damage:Number):void
+		{
+			if (0 >= invincibleCooldown) {
+				invincibleCooldown = 1;
+				onHurt();
+				
+				super.hurt(damage);
+			}
+		}
+		
+		override public function kill():void
+		{
+			if (!alive) {
+				return;
+			}
 			
-			super.update();
+			super.kill();
 		}
 		
 		//----------------------------------------------------------------------
@@ -113,6 +144,8 @@ package sacrifice.entities
 			originalOffset.copyTo(offset);
 			updateMetrics();
 		}
+		
+		protected function onHurt():void {}
 		
 		protected function updateMetrics():void
 		{

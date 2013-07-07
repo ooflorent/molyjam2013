@@ -8,8 +8,28 @@ package sacrifice.managers
 		//
 		//----------------------------------------------------------------------
 		
+		//----------------------------------
+		//  HUD
+		//----------------------------------
+		
+		[Embed("../assets/fonts/aesymatt.ttf", fontName="AESystematicTT", embedAsCFF=false)]
+		private static const Font:Class;	
+		
 		[Embed("../assets/images/hud.png")]
 		private static const HUD:Class;	
+		
+		[Embed("../assets/images/icons/bolt.png")]
+		private static const IconBolt:Class;	
+		
+		[Embed("../assets/images/icons/firecone.png")]
+		private static const IconFireCone:Class;	
+		
+		[Embed("../assets/images/icons/meteorites.png")]
+		private static const IconMeteorites:Class;	
+		
+		//----------------------------------
+		//  Entities
+		//----------------------------------
 		
 		[Embed("../assets/images/fly.png")]
 		private static const Fly:Class;
@@ -20,8 +40,15 @@ package sacrifice.managers
 		[Embed("../assets/images/snake.png")]
 		private static const Snake:Class;
 		
+		[Embed("../assets/images/skeleton.png")]
+		private static const Skeleton:Class;
+		
 		[Embed("../assets/images/wizard.png")]
 		private static const Wizard:Class;
+		
+		//----------------------------------
+		//  World
+		//----------------------------------
 		
 		[Embed("../assets/images/background.png")]
 		private static const Background:Class;

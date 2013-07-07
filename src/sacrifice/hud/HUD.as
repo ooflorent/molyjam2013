@@ -1,4 +1,4 @@
-package sacrifice.entities
+package sacrifice.hud
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
@@ -21,8 +21,22 @@ package sacrifice.entities
 			
 			add(new FlxSprite(0, 104, AssetManager.getClass("HUD")));
 			
+			add(iconBolt = new SpellIcon(3, 106, "IconBolt"));
+			add(iconFireCone = new SpellIcon(22, 106, "IconFireCone"));
+			add(iconMeteorites = new SpellIcon(41, 106, "IconMeteorites"));
+			
 			setAll("scrollFactor", new FlxPoint(0, 0));
 			setAll("cameras", [FlxG.camera]);
 		}
+		
+		//----------------------------------------------------------------------
+		//
+		//  Variables
+		//
+		//----------------------------------------------------------------------
+		
+		private var iconBolt:SpellIcon;
+		private var iconFireCone:SpellIcon;
+		private var iconMeteorites:SpellIcon;
 	}
 }

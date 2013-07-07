@@ -1,17 +1,17 @@
 package sacrifice.states 
 {
+	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
-	import org.flixel.FlxSprite;
+	import org.flixel.FlxRect;
 	import org.flixel.FlxState;
-	import org.flixel.FlxTileblock;
-	import org.flixel.FlxTilemap;
 	
 	import sacrifice.entities.Bullet;
-	import sacrifice.entities.HUD;
+	import sacrifice.entities.Entity;
+	import sacrifice.entities.Level;
 	import sacrifice.entities.Player;
-	import sacrifice.managers.AssetManager;
+	import sacrifice.hud.HUD;
 	import sacrifice.managers.EntityManager;
 	import sacrifice.managers.LevelManager;
 	
@@ -62,11 +62,13 @@ package sacrifice.states
 			playerBullets = new FlxGroup;
 			
 			player = EntityManager.createPlayer("wizard");
-			player.bullets = playerBullets;
+			player.x = 30;
+			
+			playerBullets.add(player.bolt.group);
+			playerBullets.add(player.fireCone.group);
+			playerBullets.add(player.meteorites.group);
 			
 			generateLevel(3);
-			
-			FlxG.camera.follow(player);
 			
 			add(background);
 			add(blocks);
@@ -100,6 +102,10 @@ package sacrifice.states
 			bullets = new FlxGroup;
 			bullets.add(enemyBullets);
 			bullets.add(playerBullets);
+			
+			var enemy:Entity = EntityManager.createEnemy("skeleton");
+			enemy.x = 100;
+			enemies.add(enemy);
 		}
 		
 		override public function update():void
@@ -123,8 +129,13 @@ package sacrifice.states
 		private function overlap(object1:FlxObject, object2:FlxObject):void
 		{
 			if (object1 is Bullet) {
-				if (object2.touching != FlxObject.NONE) {
-					object2.kill();
+				if (object1.touching != FlxObject.NONE) {
+					object1.kill();
+				}
+				
+				if (object2 is Entity) {
+					object1.kill();
+					object2.hurt(1);
 				}
 			}
 			
@@ -141,38 +152,36 @@ package sacrifice.states
 		
 		private function generateLevel(length:uint):void
 		{
-			var maps:Object;
-			var map:FlxTilemap;
-			var farAway:FlxSprite;
-			var layer:String;
 			var screen:uint;
-			var offset:uint;
+			var level:Level;
 			
 			// Level
 			for (; screen < length; ++screen) {
-				farAway = new FlxSprite(0, 0, AssetManager.getClass("Background"));
-				background.add(farAway);
+				level = LevelManager.getRandomMap();
+				level.setAll("x", screen * FlxG.width);
 				
-				maps = LevelManager.generate();
-				for (layer in maps) {
-					map = maps[layer];
-					map.x = map.width * screen;
-					FlxGroup(this[layer]).add(map);
+				if (level.background) {
+					background.add(level.background);
 				}
 				
-				farAway.x = map.width * screen;
+				if (level.foreground) {
+					foreground.add(level.foreground);
+				}
+				
+				if (level.map) {
+					blocks.add(level.map);
+				}
+				
+				if (level.lethal) {
+					level.lethal.addX(screen * FlxG.width);
+					lethal.add(level.lethal);
+				}
 			}
 
-			// Level bounds
-			blocks.add(new FlxTileblock(-8, 0, 8, map.height));
-			blocks.add(new FlxTileblock(map.x + map.width, 0, 8, map.height));
-			blocks.add(new FlxTileblock(0, -8, map.x + map.width, 8));
-			
-			// Death zone
-			blocks.add(lethal.add(new FlxTileblock(0, map.height, map.x + map.width, 8)));
-			
 			// Camera
-			FlxG.camera.setBounds(-8, -8, map.x + map.width + 16, map.height + 16, true);
+			FlxG.worldBounds = new FlxRect(0, 0, length * FlxG.width, FlxG.height);
+			FlxG.camera.setBounds(0, 0, length * FlxG.width, FlxG.height, true);
+			FlxG.camera.follow(player, FlxCamera.STYLE_PLATFORMER);
 		}
 	}
 }
