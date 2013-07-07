@@ -1,5 +1,7 @@
 package sacrifice.entities
 {
+	import flash.utils.getTimer;
+	
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
@@ -31,7 +33,8 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 		
-		protected var attackCooldown:Number = 0;
+		protected var fireDuration:uint = 250;
+		protected var fireTime:uint;
 		protected var invincibleCooldown:Number = 0;
 		protected var invincibleDrag:Number = 10;
 		
@@ -90,8 +93,7 @@ package sacrifice.entities
 				x = 0;
 			}
 			
-			if (attackCooldown > 0) {
-				attackCooldown -= FlxG.elapsed * 6;
+			if (getTimer() < fireTime) {
 				play("attack");
 			} else if (touching == FLOOR) {
 				if (0 != velocity.x) {

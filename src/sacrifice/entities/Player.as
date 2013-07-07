@@ -1,5 +1,7 @@
 package sacrifice.entities
 {
+	import flash.utils.getTimer;
+	
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.plugin.photonstorm.FlxControl;
@@ -26,8 +28,9 @@ package sacrifice.entities
 			invincibleDrag = 5;
 			
 			bolt = new FlxWeapon("bolt", this);
-			bolt.makePixelBullet(1);
+			bolt.makePixelBullet(20);
 			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
+			bolt.setFireRate(1);
 			
 			fireCone = new FlxWeapon("fireCone", this);
 			fireCone.setPreFireCallback(bulletDirectionCallback(fireCone));
@@ -40,7 +43,7 @@ package sacrifice.entities
 			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 200);
 			FlxControl.player1.setMovementSpeed(400, 0, 100, 200, 400, 0);
 			FlxControl.player1.setGravity(0, 700);
-			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, 0, bolt.fire)
+			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, fireDuration, bolt.fire)
 		}
 		
 		//----------------------------------------------------------------------
@@ -71,9 +74,10 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 
-		/*
 		override public function update():void
 		{
+			super.update();
+			/*
 			updateMetrics();
 			super.update();
 
@@ -104,8 +108,8 @@ package sacrifice.entities
 					attackCooldown = 1;
 				}
 			}
+			*/
 		}
-		*/
 		
 		override protected function onHurt():void
 		{
@@ -116,6 +120,7 @@ package sacrifice.entities
 		private function bulletDirectionCallback(weapon:FlxWeapon):Function
 		{
 			return function():void {
+				fireTime = getTimer() + fireDuration;
 				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
 			}
 		}
