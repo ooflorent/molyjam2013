@@ -67,7 +67,7 @@ package sacrifice.states
 			playerBullets.add(player.fireCone.group);
 			playerBullets.add(player.meteorites.group);
 			
-			level = LevelManager.generateLevel(5);
+			level = LevelManager.generateLevel(22);
 			
 			blocks = new FlxGroup;
 			blocks.add(new FlxTileblock(0, 0, level.map.width, GameModel.TILE_SIZE)); // Sky
