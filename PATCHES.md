@@ -5,8 +5,13 @@
     -override protected function resetHelpers():void
     +override public function resetHelpers():void
 
-`org.flixel.plugin.photonstorm`
+`org.flixel.plugin.photonstorm.FlxControl`
 
     -override public function draw():void
     +override public function update():void
+
+`org.flixel.plugin.photonstorm.BaseTypes.Bullet`
+
+    -protected var weapon:FlxWeapon;
+    +public var weapon:FlxWeapon;
 
