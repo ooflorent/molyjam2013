@@ -108,7 +108,7 @@ package sacrifice.entities
 			
 			if (getTimer() < fireTimer) {
 				play("attack");
-			} else if (touching == FLOOR) {
+			} else if (touching == FLOOR || flying) {
 				if (0 != velocity.x) {
 					play("walk");
 				} else {
