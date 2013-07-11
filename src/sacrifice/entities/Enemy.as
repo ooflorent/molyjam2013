@@ -69,6 +69,7 @@ package sacrifice.entities
 				direction = -1;
 			}
 			
+			/*
 			if (!flying && isTouching(FLOOR)) {
 				// Stuck on a wall!
 				if (isTouching(facing)) {
@@ -85,7 +86,9 @@ package sacrifice.entities
 						acceleration.y = 700;
 					}
 				}
+				
 			}
+			*/
 			
 			super.update();
 		}
