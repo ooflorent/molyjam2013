@@ -48,7 +48,7 @@ package sacrifice.entities
 		{
 			if (chaseTarget) {
 				var distance:int = FlxVelocity.distanceBetween(this, chaseTarget);
-				if (distance <= perceptionDistance) {
+				if (distance <= perceptionDistance && map.ray(getMidpoint(), chaseTarget.getMidpoint())) {
 					var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
 					velocity.x = Math.cos(angle) * 45;
 					if (flying) {
@@ -62,9 +62,14 @@ package sacrifice.entities
 			
 			facing = velocity.x > 0 ? RIGHT : LEFT;
 			
-			if (!flying) {
+			if (!flying && isTouching(FLOOR)) {
+				// Will the enemy fall?
 				if (!overlapsAt(x + (facing == RIGHT ? 1 : -1) * width, y + 1, map)) {
-					velocity.x = 0;
+					// Yes! Let's jump!
+					if (0 == velocity.y) {
+						velocity.y = -200;
+						acceleration.y = 700;
+					}
 				}
 			}
 			
