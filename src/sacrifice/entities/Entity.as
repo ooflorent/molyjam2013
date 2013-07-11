@@ -85,6 +85,11 @@ package sacrifice.entities
 		public var gibs:FlxEmitter;
 		public var invincible:Boolean;
 		
+		public function get perceptionDistance():int
+		{
+			return perception * 10;
+		}
+		
 		//----------------------------------------------------------------------
 		//
 		//  Overridden methods
