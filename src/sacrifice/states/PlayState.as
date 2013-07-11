@@ -56,6 +56,7 @@ package sacrifice.states
 		
 		override public function create():void
 		{
+			FlxG.bgColor = 0xFF171614;
 			FlxG.mouse.hide();
 			
 			gibs = new Gibs;
