@@ -115,7 +115,7 @@ package sacrifice.entities
 				
 				default:
 				case 2:
-					enemyType = "fly";
+					enemyType = "ghost";
 					break;
 			}
 			
