@@ -17,19 +17,19 @@ package sacrifice.states
 			add(title);
 			
 			var florent:FlxText = new FlxText(0, 30, 160, "Florent CAILHOL");
-			florent.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
+			florent.setFormat("AESystematicTT", 12, 0xF3F3F3, "left");
 			add(florent);
 			
 			var floText:FlxText = new FlxText(0, 43, 160, "Concept - Code Wizardry");
-			floText.setFormat("AESystematicTT", 12, 0xFFFFFF, "center");
+			floText.setFormat("AESystematicTT", 12, 0xF3F3F3, "center");
 			add(floText);
 			
 			var julien:FlxText = new FlxText(0, 64, 160, "Julien LE CADRE");
-			julien.setFormat("AESystematicTT", 12, 0xFFFFFF, "left");
+			julien.setFormat("AESystematicTT", 12, 0xF3F3F3, "left");
 			add(julien);
 			
 			var julText:FlxText = new FlxText(0, 78, 160, "Game Design - Pixel War");
-			julText.setFormat("AESystematicTT", 12, 0xFFFFFF, "center");
+			julText.setFormat("AESystematicTT", 12, 0xF3F3F3, "center");
 			add(julText);
 			
 			var back:ButtonBack = new ButtonBack(0, 100, startMenu);
