@@ -106,8 +106,6 @@ package sacrifice.entities
 				weaponOffset.x = -originalWeaponOffset.x;
 			}
 			
-			super.update();
-			
 			if (getTimer() < fireTimer) {
 				play("attack");
 			} else if (touching == FLOOR) {

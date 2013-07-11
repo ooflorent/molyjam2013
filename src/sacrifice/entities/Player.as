@@ -75,7 +75,7 @@ package sacrifice.entities
 			
 			FlxControl.create(this, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, true, false);
 			FlxControl.player1.setCursorControl(false, false, true, true);
-			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 200);
+			FlxControl.player1.setJumpButton("UP", FlxControlHandler.KEYMODE_PRESSED, 200, FLOOR, 250, 100);
 			FlxControl.player1.setMovementSpeed(400, 0, 100, 200, 400, 0);
 			FlxControl.player1.setGravity(0, 700);
 			FlxControl.player1.setFireButton("X", FlxControlHandler.KEYMODE_JUST_DOWN, fireDuration, bolt.fire)

@@ -60,11 +60,25 @@ package sacrifice.entities
 				velocity.y = 0;
 			}
 			
-			facing = velocity.x > 0 ? RIGHT : LEFT;
+			var direction:int;
+			if (velocity.x > 0) {
+				facing = RIGHT;
+				direction = 1;
+			} else if (velocity.x < 0) {
+				facing = LEFT;
+				direction = -1;
+			}
 			
 			if (!flying && isTouching(FLOOR)) {
+				// Stuck on a wall!
+				if (isTouching(facing)) {
+					if (0 == velocity.y) {
+						velocity.y = -200;
+						acceleration.y = 700;
+					}
+				}
 				// Will the enemy fall?
-				if (!overlapsAt(x + (facing == RIGHT ? 1 : -1) * width, y + 1, map)) {
+				else if (!overlapsAt(x + direction * width, y + 1, map)) {
 					// Yes! Let's jump!
 					if (0 == velocity.y) {
 						velocity.y = -200;
