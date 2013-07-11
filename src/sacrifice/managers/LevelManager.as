@@ -171,7 +171,7 @@ package sacrifice.managers
 		
 		public static function getRandomMap():Object
 		{
-			return getMap(lastMap = FlxMath.rand(1, maps.length - 1, lastMap ? [lastMap] : null));
+			return getMap(lastMap = FlxMath.rand(2, maps.length - 1, lastMap ? [lastMap] : null));
 		}
 	}
 }
