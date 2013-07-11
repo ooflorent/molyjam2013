@@ -80,7 +80,25 @@
 			<speed>7</speed>
 			<perception>5</perception>
 			<attack>1</attack>
-			<flying>false</flying>
+			<flying>0</flying>
+		</characteristics>
+	</entity>
+	<entity name="ghost">
+		<asset>
+			<name>Ghost</name>
+			<width>8</width>
+			<height>8</height>
+		</asset>
+		<bounds>
+			<x>1</x>
+			<width>7</width>
+		</bounds>
+		<characteristics>
+			<maxHealth>5</maxHealth>
+			<speed>7</speed>
+			<perception>5</perception>
+			<attack>1</attack>
+			<flying>1</flying>
 		</characteristics>
 	</entity>
 </entities>

@@ -46,6 +46,9 @@ package sacrifice.managers
 		[Embed("../assets/images/knight.png")]
 		private static const Knight:Class;
 		
+		[Embed("../assets/images/ghost.png")]
+		private static const Ghost:Class;
+		
 		[Embed("../assets/images/snake.png")]
 		private static const Snake:Class;
 		
