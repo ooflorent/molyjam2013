@@ -35,7 +35,7 @@ package sacrifice.entities
 		//
 		//----------------------------------------------------------------------
 		
-		protected var fireDuration:uint = 250;
+		protected var fireDuration:uint = 0;
 		protected var fireTimer:uint;
 		protected var invincibleDuration:uint = 200;
 		protected var invincibleTimer:uint;

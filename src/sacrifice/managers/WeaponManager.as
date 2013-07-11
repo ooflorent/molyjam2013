@@ -39,20 +39,26 @@ package sacrifice.managers
 			}
 		}
 		
-		public static function createWeapon(name:String):FlxWeapon
+		public static function createWeapon(name:String, weaponClass:Class = null):FlxWeapon
 		{
 			if (!name) {
 				throw new Error("Weapon name is required");
 			}
 			
-			var object:FlxWeapon = new FlxWeapon(name);
 			var weapon:XML = weapons[name];
 			if (!weapon) {
 				throw new Error("Unknown weapon '" + name + "'");
 			}
 			
+			if (!weaponClass) {
+				weaponClass = FlxWeapon;
+			}
+			
+			var object:FlxWeapon = FlxWeapon(new weaponClass(name));
+			
 			object.bulletDamage = Math.min(1, weapon.characteristics.damage);
 			object.setFireRate(weapon.characteristics.fireRate);
+			object.setBulletSpeed(weapon.characteristics.bulletSpeed);
 			
 			var width:uint = uint(weapon.bullet.width);
 			var height:uint = uint(weapon.bullet.height);
@@ -76,6 +82,8 @@ package sacrifice.managers
 				}
 				
 				object.makePixelBullet(20, width, height, color, offsetX, offsetY);
+			} else if ("bitmap" == weapon.bullet.@type) {
+				object.makeAnimatedBullet(20, AssetManager.getClass(weapon.bullet.asset), width, height, [0, 1], 20, true, offsetX, offsetY);
 			}
 			
 			return object;

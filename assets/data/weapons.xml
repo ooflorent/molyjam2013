@@ -6,7 +6,8 @@
 			<height>3</height>
 		</bullet>
 		<characteristics>
-			<fireRate>50</fireRate>
+			<fireRate>100</fireRate>
+			<bulletSpeed>180</bulletSpeed>
 		</characteristics>
 	</weapon>
 	<weapon name="projectile">
@@ -22,7 +23,8 @@
 			<height>1</height>
 		</bounds>
 		<characteristics>
-			<fireRate>50</fireRate>
+			<fireRate>100</fireRate>
+			<bulletSpeed>180</bulletSpeed>
 		</characteristics>
 	</weapon>
 </weapons>

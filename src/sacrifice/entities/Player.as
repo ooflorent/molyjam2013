@@ -10,6 +10,7 @@ package sacrifice.entities
 	
 	import sacrifice.managers.WeaponManager;
 	import sacrifice.states.GameOverState;
+	import sacrifice.weapons.Bolt;
 	
 	public class Player extends Entity
 	{
@@ -63,7 +64,7 @@ package sacrifice.entities
 		{
 			super.create();
 			
-			bolt = WeaponManager.createWeapon("bolt");
+			bolt = WeaponManager.createWeapon("projectile", Bolt);
 			bolt.setPreFireCallback(bulletDirectionCallback(bolt));
 			
 			fireCone = new FlxWeapon("fireCone", this);
@@ -94,9 +95,9 @@ package sacrifice.entities
 			fireCone.setBulletBounds(bulletBounds);
 			meteorites.setBulletBounds(bulletBounds);
 			
-			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
-			fireCone.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
-			meteorites.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y);
+			bolt.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y, true);
+			fireCone.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y, true);
+			meteorites.setParent(this, "x", "y", weaponOffset.x, weaponOffset.y, true);
 		}
 		
 		override protected function onHurt():void
@@ -119,7 +120,6 @@ package sacrifice.entities
 		{
 			return function():void {
 				fireTimer = getTimer() + fireDuration;
-				weapon.setBulletDirection(LEFT == facing ? FlxWeapon.BULLET_LEFT : FlxWeapon.BULLET_RIGHT, 200);
 			}
 		}
 	}
