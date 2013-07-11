@@ -67,6 +67,7 @@ package sacrifice.managers
 		//----------------------------------------------------------------------
 		
 		private static var emptyRow:String;
+		private static var lastMap:int;
 		private static var maps:Array;
 		
 		//----------------------------------------------------------------------
@@ -170,7 +171,7 @@ package sacrifice.managers
 		
 		public static function getRandomMap():Object
 		{
-			return getMap(FlxMath.rand(1, maps.length - 1));
+			return getMap(lastMap = FlxMath.rand(1, maps.length - 1, lastMap ? [lastMap] : null));
 		}
 	}
 }
