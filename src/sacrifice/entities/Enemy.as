@@ -48,7 +48,7 @@ package sacrifice.entities
 		{
 			if (chaseTarget) {
 				var distance:int = FlxVelocity.distanceBetween(this, chaseTarget);
-				if (distance < perception * 10) {
+				if (distance <= perceptionDistance) {
 					var angle:Number = FlxVelocity.angleBetween(this, chaseTarget);
 					velocity.x = Math.cos(angle) * 45;
 					if (flying) {
@@ -61,6 +61,12 @@ package sacrifice.entities
 			}
 			
 			facing = velocity.x > 0 ? RIGHT : LEFT;
+			
+			if (!flying) {
+				if (!overlapsAt(x + (facing == RIGHT ? 1 : -1) * width, y + 1, map)) {
+					velocity.x = 0;
+				}
+			}
 			
 			super.update();
 		}
